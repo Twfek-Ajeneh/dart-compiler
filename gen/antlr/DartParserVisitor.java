@@ -11,11 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link DartParser#expression}.
+	 * Visit a parse tree produced by {@link DartParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(DartParser.ExpressionContext ctx);
+	T visitProgram(DartParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaration(DartParser.DeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#variablesDeclaration}.
 	 * @param ctx the parse tree
@@ -29,6 +35,24 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameterDeclaration(DartParser.ParameterDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DartParser#argumentDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentDeclaration(DartParser.ArgumentDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#classDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassDeclaration(DartParser.ClassDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#classConstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassConstructor(DartParser.ClassConstructorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#functionDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -41,11 +65,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionCall(DartParser.FunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#blockBody}.
+	 * Visit a parse tree produced by {@link DartParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlockBody(DartParser.BlockBodyContext ctx);
+	T visitLiteral(DartParser.LiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#objectLiteral}.
 	 * @param ctx the parse tree
@@ -53,11 +77,53 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitObjectLiteral(DartParser.ObjectLiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#conditionExpression}.
+	 * Visit a parse tree produced by {@link DartParser#objectContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConditionExpression(DartParser.ConditionExpressionContext ctx);
+	T visitObjectContent(DartParser.ObjectContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#listLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListLiteral(DartParser.ListLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperation(DartParser.OperationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#blockBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockBody(DartParser.BlockBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#classBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassBody(DartParser.ClassBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(DartParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#importStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportStatement(DartParser.ImportStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(DartParser.ExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#assignableExpression}.
 	 * @param ctx the parse tree
@@ -70,6 +136,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariablesExpression(DartParser.VariablesExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#conditionExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionExpression(DartParser.ConditionExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#forExpression}.
 	 * @param ctx the parse tree
@@ -88,34 +160,4 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIfExpression(DartParser.IfExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteral(DartParser.LiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#listLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitListLiteral(DartParser.ListLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#operation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperation(DartParser.OperationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#classDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassDeclaration(DartParser.ClassDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#classBody}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassBody(DartParser.ClassBodyContext ctx);
 }

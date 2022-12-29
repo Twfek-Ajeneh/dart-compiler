@@ -2,21 +2,69 @@ parser grammar DartParser;
 
 options { tokenVocab=DartLexer; }
 
-// identifier
+// Declaration
+program: (functionDeclaration | classDeclaration | statement)* EOF;
 
-// expression
+declaration: variablesDeclaration
+           | parameterDeclaration
+           | argumentDeclaration
+           | classDeclaration
+           | functionDeclaration
+           ;
 
-// declaraiton
+variablesDeclaration: (VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER (EQ assignableExpression)? SC;
 
-// class
+parameterDeclaration: (((VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER C)* ((VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER))?;
 
-// function
+argumentDeclaration: ((assignableExpression C)* assignableExpression)?;
 
-// for
+classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classBody CBC;
 
-// while
+classConstructor: IDENTIFIER OP parameterDeclaration CP OBC blockBody CBC;
 
-// if else
+functionDeclaration: TYPEOFFUNCTION IDENTIFIER OP parameterDeclaration CP OBC blockBody RETURN_  assignableExpression? SC CBC;
+
+functionCall: IDENTIFIER OP argumentDeclaration CP SC;
+
+// Literal
+literal: NUMBER
+       | STRING
+       | FALSE_
+       | TRUE_
+       | NULL_
+       | listLiteral
+       | objectLiteral
+       ;
+
+objectLiteral: NEW_ IDENTIFIER OP argumentDeclaration CB (C IDENTIFIER)*;
+
+objectContent: IDENTIFIER (D IDENTIFIER)+;
+
+listLiteral: OB (literal C)* literal CB;
+
+// Operation
+operation : OP operation CP
+          | operation ST operation
+          | operation SL operation
+          | operation PC operation
+          | operation PL operation
+          | operation MINUS operation
+          | IDENTIFIER
+          | literal
+          | functionCall
+          ;
+
+// Block Body
+blockBody: (variablesDeclaration | expression)*;
+
+classBody : variablesDeclaration* classConstructor? functionDeclaration*;
+
+// Statement
+statement: importStatement;
+
+importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
+
+// Expression
 expression: assignableExpression
           | variablesExpression
           | conditionExpression
@@ -25,64 +73,25 @@ expression: assignableExpression
           | ifExpression
           ;
 
-variablesDeclaration: (VAR_ | FINAL_)? TYPEOFVARIABLES IDENTIFIER (EQ assignableExpression)? SC;
-
-parameterDeclaration: ((VAR_ | FINAL_)? TYPEOFVARIABLES IDENTIFIER C)* ((VAR_ | FINAL_)? TYPEOFVARIABLES IDENTIFIER);
-
-functionDeclaration: TYPEOFFUNCTION IDENTIFIER OP (parameterDeclaration)? CP OBC
-                      (blockBody)*
-                      RETURN_  assignableExpression?
-                      CBC;
-
-functionCall: IDENTIFIER OP ((assignableExpression C)* assignableExpression)? CB;
-
-blockBody: variablesDeclaration | expression;
-
-objectLiteral : NEW_ IDENTIFIER OP ((assignableExpression C)* assignableExpression)? CB;
-
-conditionExpression: assignableExpression (EE | GT | LT | LTE | GTE | NE) assignableExpression
-                   | conditionExpression AA conditionExpression
-                   | conditionExpression PP conditionExpression
-                   ;
-
-assignableExpression: IDENTIFIER
-                    // operation
+assignableExpression: functionCall
                     | literal
                     | functionDeclaration
                     | objectLiteral
-                    | functionCall
+                    | IDENTIFIER
+                    | objectContent
+                    | operation
                     ;
 
-variablesExpression: IDENTIFIER (EQ assignableExpression)?;
+variablesExpression: IDENTIFIER (EQ assignableExpression)? SC?;
 
-forExpression: FOR_ OP (TYPEOFVARIABLES? variablesExpression) SC conditionExpression SC expression CP OBC blockBody CBC ;
+conditionExpression: conditionExpression AA conditionExpression
+                   | conditionExpression PP conditionExpression
+                   | assignableExpression (EE | GT | LT | LTE | GTE | NE) assignableExpression
+                   | assignableExpression
+                   ;
 
-whileExpression: WHILE_ OP conditionExpression CP OBC (blockBody)? CBC;
+forExpression: FOR_ OP (TYPEOFVARIABLES? variablesExpression) conditionExpression SC expression CP OBC blockBody CBC;
 
-ifExpression: IF_ OP conditionExpression CP OBC (blockBody)? CBC ELSE_ OBC (blockBody)? CBC;
+whileExpression: WHILE_ OP conditionExpression CP OBC blockBody CBC;
 
-literal: NUMBER
-       | STRING
-       | FALSE_
-       | TRUE_
-       | NULL_
-       | listLiteral
-       ;
-
-listLiteral: OB (literal C)* literal  CB;
-
-operation : OP operation CP
-          | operation ST operation
-          | operation SL operation
-          | operation PC operation
-          | operation PL operation
-          | operation MINUS operation
-          | assignableExpression
-          ;
-
-
-classDeclaration : CLASS_ IDENTIFIER OBC
-                   classBody
-                   CBC;
-
-classBody : (variablesDeclaration | functionDeclaration)*;
+ifExpression: IF_ OP conditionExpression CP OBC blockBody CBC (ELSE_ OBC blockBody CBC)?;
