@@ -10,6 +10,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -22,9 +27,10 @@
   </component>
   <component name="ProjectId" id="2JXX58XFobQoTb2Az4Lg1rd5Rpe" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Intelligent Search Algorithm/Final Project/The-Real-Problem" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Intelligent Search Algorithm/Final Project/The-Real-Problem" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -76,6 +82,7 @@
       <workItem from="1672226420044" duration="3725000" />
       <workItem from="1672230528376" duration="9029000" />
       <workItem from="1672247850041" duration="3573000" />
+      <workItem from="1672311700308" duration="59000" />
     </task>
     <servers />
   </component>

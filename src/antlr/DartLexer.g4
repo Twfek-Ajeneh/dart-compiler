@@ -72,3 +72,7 @@ fragment IDENTIFIER_START : IDENTIFIER_START_NO_DOLLAR | '$' ;
 fragment IDENTIFIER_PART : IDENTIFIER_START | DIGIT ;
 fragment LETTER : 'a' .. 'z' | 'A' .. 'Z' ;
 fragment DIGIT : '0' .. '9' ;
+
+// NEW
+fragment TYPEOFVARIABLES : 'int' | 'string' | 'long' | 'bool' | 'bool' | 'Double' | 'float';
+fragment TYPEOFFUNCTION : TYPEOFVARIABLES | 'void';
