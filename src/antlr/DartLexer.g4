@@ -41,6 +41,7 @@ FOR_:'for';
 IF_:'if';
 IMPORT_:'import';
 IS_:'is';
+NEW_:'new';
 NULL_:'null';
 RETURN_:'return';
 STATIC_:'static';
@@ -49,13 +50,15 @@ SWITCH_:'switch';
 THIS_:'this';
 TRUE_:'true';
 VAR_:'var';
-VOID_:'void';
 WHILE_:'while';
+VOID_:'void';
+TYPEOFVARIABLES : 'int' | 'String' | 'bool' | 'double' ;
+TYPEOFFUNCTION : TYPEOFVARIABLES | VOID_;
 NUMBER : DIGIT+ ( '.' DIGIT+ )? ;
-SingleLineString : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"' ;
+STRING : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"' ;
 IDENTIFIER : IDENTIFIER_START IDENTIFIER_PART* ;
 WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip;
-SINGLE_LINE_COMMENT : '//' ~[\r\n]* -> skip;
+COMMENT : '//' ~[\r\n]* -> skip;
 
 // main fregment
 fragment StringDQ : '"' StringContentDQ*? '"' ;
@@ -72,7 +75,3 @@ fragment IDENTIFIER_START : IDENTIFIER_START_NO_DOLLAR | '$' ;
 fragment IDENTIFIER_PART : IDENTIFIER_START | DIGIT ;
 fragment LETTER : 'a' .. 'z' | 'A' .. 'Z' ;
 fragment DIGIT : '0' .. '9' ;
-
-// NEW
-fragment TYPEOFVARIABLES : 'int' | 'string' | 'long' | 'bool' | 'bool' | 'Double' | 'float';
-fragment TYPEOFFUNCTION : TYPEOFVARIABLES | 'void';
