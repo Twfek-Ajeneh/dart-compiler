@@ -21,7 +21,6 @@ type: TYPE | IDENTIFIER;
 
 variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
 
-
 //===================================================
 // VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
 finalConstVarOrType: FINAL_ type?
@@ -85,25 +84,27 @@ classConstructorBody: OBC statement* CBC;
 
 
 //===================================================
-//Expression
-expression: conditionExpression
+// Expressions:
+expression: conditionalExpression
           | functionCall
           | literal
-          | functionDeclaration
-          | objectLiteral
-          | IDENTIFIER
           | objectContent
           | operation
+          | functionDeclaration
+          | IDENTIFIER
           ;
 
-conditionExpression: conditionExpression AA conditionExpression
-                   | conditionExpression PP conditionExpression
+conditionalExpression: conditionalExpression AA conditionalExpression
+                   | conditionalExpression PP conditionalExpression
                    | expression (EE | GT | LT | LTE | GTE | NE) expression
                    | TRUE_
                    | FALSE_
                    ;
 //===================================================
 
+
+//===================================================
+// Literals:
 literal: NUMBER
        | STRING
        | FALSE_
@@ -113,11 +114,13 @@ literal: NUMBER
        | objectLiteral
        ;
 
-objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CB (C IDENTIFIER)*;
+objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CP (C IDENTIFIER)*;
+
+listLiteral: (OB CB) | OB literal (C literal)* C? CB;
 
 objectContent: IDENTIFIER (D IDENTIFIER)+;
+//===================================================
 
-listLiteral: OB (literal C)* literal CB;
 
 operation : OP operation CP
           | operation ST operation
@@ -130,10 +133,13 @@ operation : OP operation CP
           | functionCall
           ;
 
-blockBody: (variablesDeclaration | expression)*;
+statementsBlock: OBC (variablesDeclaration | expression)* CBC;
 
-forExpression: FOR_ OP (TYPE? variablesExpression) conditionExpression SC expression CP OBC blockBody CBC;
+// TODO: Revisite
+forStatement: FOR_ OP statement conditionalExpression SC statement CP statementsBlock;
 
-whileExpression: WHILE_ OP conditionExpression CP OBC blockBody CBC;
+whileStatement: WHILE_ OP conditionalExpression CP statementsBlock;
 
-ifExpression: IF_ OP conditionExpression CP OBC blockBody CBC (ELSE_ OBC blockBody CBC)?;
+ifStatement: IF_ OP conditionalExpression CP statementsBlock (ELSE_ elseIfBlock)?;
+
+elseIfBlock: statementsBlock | ifStatement;
