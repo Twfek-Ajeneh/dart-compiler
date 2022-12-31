@@ -8,7 +8,7 @@ options { tokenVocab=DartLexer; }
 program: (functionDeclaration /*| classDeclaration*/ | statement)* EOF;
 
 declaration: variablesDeclaration
-           | argumentsDeclaration
+           | /*argumentsDeclaration*/
            | /* classDeclaration */
            | functionDeclaration
            ;
@@ -49,8 +49,24 @@ functionSignature: type? IDENTIFIER parameters;
 parameters: (OP CP | OP normalFormalParameters C? CP);
 
 normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
+//************************************************
+statement: importStatement;
+
+importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
+variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
+//************************************************
+
+//************************************************
+classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
+
+classMemberDefinition: variableStatement*  classConstructor? functionDeclaration*;
+
+classConstructor: IDENTIFIER parameters classConstructorBody;
+
+classConstructorBody: OBC statement* CBC;
+//************************************************
 
 funcitonBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
 
@@ -65,10 +81,7 @@ functionCall: IDENTIFIER ((OP CP) | OP argumentsDeclaration C? CP);
 argumentsDeclaration: assignableExpression (C assignableExpression)*;
 //===================================================
 
-
-//classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classBody CBC;
-//
-//classConstructor: IDENTIFIER OP parameterDeclaration CP OBC blockBody CBC;
+// functionCall: IDENTIFIER OP argumentDeclaration CP SC;
 
 literal: NUMBER
        | STRING
@@ -97,12 +110,6 @@ operation : OP operation CP
           ;
 
 blockBody: (variablesDeclaration | expression)*;
-
-//classBody : variablesDeclaration* classConstructor? functionDeclaration*;
-
-statement: importStatement;
-
-importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
 
 expression: assignableExpression
           | variablesExpression
