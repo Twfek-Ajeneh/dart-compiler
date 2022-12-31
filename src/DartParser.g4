@@ -86,17 +86,20 @@ classConstructorBody: OBC statement* CBC;
 //===================================================
 // Expressions:
 expression: conditionalExpression
-          | functionCall
-          | literal
-          | objectContent
-          | operation
-          | functionDeclaration
-          | IDENTIFIER
+          | oprationExpression
           ;
+
+oprationExpression: functionCall
+                  | literal
+                  | objectContent
+                  | operation
+                  | functionDeclaration
+                  | IDENTIFIER
+                  ;
 
 conditionalExpression: conditionalExpression AA conditionalExpression
                    | conditionalExpression PP conditionalExpression
-                   | expression (EE | GT | LT | LTE | GTE | NE) expression
+                   | oprationExpression (EE | GT | LT | LTE | GTE | NE) oprationExpression
                    | TRUE_
                    | FALSE_
                    ;
@@ -114,7 +117,7 @@ literal: NUMBER
        | objectLiteral
        ;
 
-objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CP (C IDENTIFIER)*;
+objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CP (D IDENTIFIER)*;
 
 listLiteral: (OB CB) | OB literal (C literal)* C? CB;
 
