@@ -5,10 +5,11 @@ options { tokenVocab=DartLexer; }
 
 //===================================================
 // Essentials
-program: (functionDeclaration | classDeclaration | statement)* EOF;
+program: (functionDeclaration | classDeclaration | statement | importStatement)* EOF;
 
-statement: importStatement
-         | variableStatement
+semiColonStatement: statement SC;
+
+statement: variableStatement
          | expression;
 
 declaration: variablesDeclaration
@@ -56,7 +57,7 @@ normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-funcitonBlock: OBC (statement)* RETURN_ expression? SC CBC;
+funcitonBlock: OBC (semiColonStatement)* RETURN_ expression? SC CBC;
 
 functionDeclaration: functionSignature funcitonBlock;
 
@@ -83,7 +84,7 @@ classMemberDefinition: variableStatement
 
 classConstructor: IDENTIFIER parameters classConstructorBody;
 
-classConstructorBody: OBC statement* CBC;
+classConstructorBody: OBC semiColonStatement* CBC;
 //===================================================
 
 
@@ -96,9 +97,9 @@ expression: conditionalExpression
 operationExpression: functionCall
                   | literal
                   | objectContent
-                  | operation
                   | functionDeclaration
                   | IDENTIFIER
+                  | operation
                   ;
 
 conditionalExpression: conditionalExpression AA conditionalExpression
@@ -129,6 +130,8 @@ objectContent: IDENTIFIER (D IDENTIFIER)+;
 //===================================================
 
 
+//===================================================
+// Operations:
 operation : OP operation CP
           | operation ST operation
           | operation SL operation
@@ -139,14 +142,19 @@ operation : OP operation CP
           | literal
           | functionCall
           ;
+//===================================================
 
-statementsBlock: OBC (variablesDeclaration | expression)* CBC;
-
-// TODO: Revisite
-forStatement: FOR_ OP statement conditionalExpression SC statement CP statementsBlock;
+//===================================================
+// Statements:
+forStatement: FOR_ OP statement SC conditionalExpression SC statement CP statementsBlock;
 
 whileStatement: WHILE_ OP conditionalExpression CP statementsBlock;
 
 ifStatement: IF_ OP conditionalExpression CP statementsBlock (ELSE_ elseIfBlock)?;
 
 elseIfBlock: statementsBlock | ifStatement;
+
+statementsBlock: OBC (semiColonStatement | breakContinueStatement)* CBC;
+
+breakContinueStatement: (BREAK_ | CONTINUE_) SC;
+//===================================================
