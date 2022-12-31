@@ -73,9 +73,13 @@ argumentsDeclaration: expression (C expression)*;
 // Class Declaration:
 importStatement: IMPORT_ STRING (AS_ IDENTIFIER)? SC;
 
-classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
+classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? classBlock;
 
-classMemberDefinition: variableStatement* classConstructor? functionDeclaration*;
+classBlock: OBC classMemberDefinition* CBC;
+
+classMemberDefinition: variableStatement
+                     | classConstructor
+                     | functionDeclaration;
 
 classConstructor: IDENTIFIER parameters classConstructorBody;
 
