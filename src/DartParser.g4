@@ -86,10 +86,10 @@ classConstructorBody: OBC statement* CBC;
 //===================================================
 // Expressions:
 expression: conditionalExpression
-          | oprationExpression
+          | operationExpression
           ;
 
-oprationExpression: functionCall
+operationExpression: functionCall
                   | literal
                   | objectContent
                   | operation
@@ -99,7 +99,7 @@ oprationExpression: functionCall
 
 conditionalExpression: conditionalExpression AA conditionalExpression
                    | conditionalExpression PP conditionalExpression
-                   | oprationExpression (EE | GT | LT | LTE | GTE | NE) oprationExpression
+                   | operationExpression (EE | GT | LT | LTE | GTE | NE) operationExpression
                    | TRUE_
                    | FALSE_
                    ;
