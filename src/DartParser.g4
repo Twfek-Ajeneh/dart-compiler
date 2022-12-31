@@ -5,16 +5,17 @@ options { tokenVocab=DartLexer; }
 
 //===================================================
 // Essentials
-program: (functionDeclaration /*| classDeclaration*/ | statement)* EOF;
+program: (functionDeclaration | classDeclaration | statement)* EOF;
 
 declaration: variablesDeclaration
-           | /*argumentsDeclaration*/
-           | /* classDeclaration */
+           | classDeclaration
            | functionDeclaration
            ;
 
 type: TYPE | IDENTIFIER;
 //===================================================
+
+variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
 
 
 //===================================================
@@ -49,29 +50,12 @@ functionSignature: type? IDENTIFIER parameters;
 parameters: (OP CP | OP normalFormalParameters C? CP);
 
 normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
-//************************************************
-statement: importStatement;
-
-importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
-variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
-//************************************************
-
-//************************************************
-classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
-
-classMemberDefinition: variableStatement*  classConstructor? functionDeclaration*;
-
-classConstructor: IDENTIFIER parameters classConstructorBody;
-
-classConstructorBody: OBC statement* CBC;
-//************************************************
 
 funcitonBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
 
 functionDeclaration: functionSignature funcitonBlock;
-//===================================================
 
 
 //===================================================
@@ -81,7 +65,21 @@ functionCall: IDENTIFIER ((OP CP) | OP argumentsDeclaration C? CP);
 argumentsDeclaration: assignableExpression (C assignableExpression)*;
 //===================================================
 
-// functionCall: IDENTIFIER OP argumentDeclaration CP SC;
+
+//===================================================
+// Class Declaration:
+statement: importStatement;
+
+importStatement: IMPORT_ STRING (AS_ IDENTIFIER)? SC;
+
+classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
+
+classMemberDefinition: variableStatement* classConstructor? functionDeclaration*;
+
+classConstructor: IDENTIFIER parameters classConstructorBody;
+
+classConstructorBody: OBC statement* CBC;
+//===================================================
 
 literal: NUMBER
        | STRING
