@@ -2,7 +2,6 @@ parser grammar DartParser;
 
 options { tokenVocab=DartLexer; }
 
-// Declaration
 program: (functionDeclaration | classDeclaration | statement)* EOF;
 
 declaration: variablesDeclaration
@@ -26,7 +25,6 @@ functionDeclaration: TYPEOFFUNCTION IDENTIFIER OP parameterDeclaration CP OBC bl
 
 functionCall: IDENTIFIER OP argumentDeclaration CP SC;
 
-// Literal
 literal: NUMBER
        | STRING
        | FALSE_
@@ -42,7 +40,6 @@ objectContent: IDENTIFIER (D IDENTIFIER)+;
 
 listLiteral: OB (literal C)* literal CB;
 
-// Operation
 operation : OP operation CP
           | operation ST operation
           | operation SL operation
@@ -54,17 +51,14 @@ operation : OP operation CP
           | functionCall
           ;
 
-// Block Body
 blockBody: (variablesDeclaration | expression)*;
 
 classBody : variablesDeclaration* classConstructor? functionDeclaration*;
 
-// Statement
 statement: importStatement;
 
 importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
 
-// Expression
 expression: assignableExpression
           | variablesExpression
           | conditionExpression

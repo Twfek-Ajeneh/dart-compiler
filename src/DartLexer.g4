@@ -52,13 +52,17 @@ THIS_: 'this';
 TRUE_: 'true';
 VAR_: 'var';
 WHILE_: 'while';
+
 TYPEOFVARIABLES : 'int' | 'String' | 'bool' | 'double' ;
 TYPEOFFUNCTION : TYPEOFVARIABLES | 'void';
+
 NUMBER : DIGIT+ ( '.' DIGIT+ )? ;
 STRING : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"' ;
+
 IDENTIFIER : IDENTIFIER_START IDENTIFIER_PART* ;
-WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip;
-COMMENT : '//' ~[\r\n]* -> skip;
+
+WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip ;
+COMMENT : '//' ~[\r\n]* -> skip ;
 
 fragment StringDQ : '"' StringContentDQ*? '"' ;
 fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}' ;
@@ -67,10 +71,9 @@ fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\
 fragment StringContentTDQ : ~('\\' | '"') | '"' ~'"' | '""' ~'"' ;
 fragment StringContentTSQ : '\'' ~'\'' | '\'\'' ~'\'' | . ;
 fragment NEWLINE : '\n' | '\r' | '\r\n' ;
-fragment IDENTIFIER_NO_DOLLAR : IDENTIFIER_START_NO_DOLLAR IDENTIFIER_PART_NO_DOLLAR* ;
-fragment IDENTIFIER_START_NO_DOLLAR : LETTER | '_' ;
-fragment IDENTIFIER_PART_NO_DOLLAR : IDENTIFIER_START_NO_DOLLAR | DIGIT ;
-fragment IDENTIFIER_START : IDENTIFIER_START_NO_DOLLAR | '$' ;
+
+fragment IDENTIFIER_START : LETTER | '_' | '$' ;
 fragment IDENTIFIER_PART : IDENTIFIER_START | DIGIT ;
+
 fragment LETTER : 'a' .. 'z' | 'A' .. 'Z' ;
 fragment DIGIT : '0' .. '9' ;
