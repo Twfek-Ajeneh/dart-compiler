@@ -5,7 +5,7 @@ options { tokenVocab=DartLexer; }
 
 //===================================================
 // Essentials
-program: (functionDeclaration | classDeclaration | statement | importStatement)* EOF;
+program: (functionDeclaration | classDeclaration | (variablesDeclaration SC) | importStatement)* EOF;
 
 semiColonStatement: statement SC;
 
@@ -16,7 +16,10 @@ statement: variableStatement | expression;
 type: TYPE | IDENTIFIER;
 //===================================================
 
-variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
+variableStatement: variablesDeclaration
+                 | initializedVariableDeclaration
+                 | initializedIdentifierList
+                 ;
 
 //===================================================
 // VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
