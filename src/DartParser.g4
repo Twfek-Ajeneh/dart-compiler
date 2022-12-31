@@ -39,9 +39,9 @@ variablesDeclaration: declaredIdentifier (C IDENTIFIER)*;
 
 //===================================================
 // VariableS Initialization: int x = 30, y, z | int x = 30, y = 40, z | x = 50, y = 50, z = 40;
-initializedVariableDeclaration: declaredIdentifier (EQ assignableExpression)? (C initializedIdentifier)*;
+initializedVariableDeclaration: declaredIdentifier (EQ expression)? (C initializedIdentifier)*;
 
-initializedIdentifier: IDENTIFIER (EQ assignableExpression)?;
+initializedIdentifier: IDENTIFIER (EQ expression)?;
 
 initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
 //===================================================
@@ -57,16 +57,16 @@ normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-functionBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
+funcitonBlock: OBC (statement)* RETURN_ expression? SC CBC;
 
-functionDeclaration: functionSignature functionBlock;
+functionDeclaration: functionSignature funcitonBlock;
 
 
 //===================================================
 // Function Call:
 functionCall: IDENTIFIER ((OP CP) | OP argumentsDeclaration C? CP);
 
-argumentsDeclaration: assignableExpression (C assignableExpression)*;
+argumentsDeclaration: expression (C expression)*;
 //===================================================
 
 
@@ -81,6 +81,27 @@ classMemberDefinition: variableStatement* classConstructor? functionDeclaration*
 classConstructor: IDENTIFIER parameters classConstructorBody;
 
 classConstructorBody: OBC statement* CBC;
+//===================================================
+
+
+//===================================================
+//Expression
+expression: conditionExpression
+          | functionCall
+          | literal
+          | functionDeclaration
+          | objectLiteral
+          | IDENTIFIER
+          | objectContent
+          | operation
+          ;
+
+conditionExpression: conditionExpression AA conditionExpression
+                   | conditionExpression PP conditionExpression
+                   | expression (EE | GT | LT | LTE | GTE | NE) expression
+                   | TRUE_
+                   | FALSE_
+                   ;
 //===================================================
 
 literal: NUMBER
@@ -110,31 +131,6 @@ operation : OP operation CP
           ;
 
 blockBody: (variablesDeclaration | expression)*;
-
-expression: assignableExpression
-          | variablesExpression
-          | conditionExpression
-          | forExpression
-          | whileExpression
-          | ifExpression
-          ;
-
-assignableExpression: functionCall
-                    | literal
-                    | functionDeclaration
-                    | objectLiteral
-                    | IDENTIFIER
-                    | objectContent
-                    | operation
-                    ;
-
-variablesExpression: IDENTIFIER (EQ assignableExpression)? SC?;
-
-conditionExpression: conditionExpression AA conditionExpression
-                   | conditionExpression PP conditionExpression
-                   | assignableExpression (EE | GT | LT | LTE | GTE | NE) assignableExpression
-                   | assignableExpression
-                   ;
 
 forExpression: FOR_ OP (TYPE? variablesExpression) conditionExpression SC expression CP OBC blockBody CBC;
 
