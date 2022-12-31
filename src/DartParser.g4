@@ -50,7 +50,9 @@ initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
 // Function Declaration:
 functionSignature: type? IDENTIFIER parameters;
 
-parameters: (OP CP | OP normalFormalParameters C? CP);
+parameters: (OP CP | OP (normalFormalParameters  (C namedParameters)* | namedParameters) C? CP);
+
+namedParameters: OBC normalFormalParameters* CBC;
 
 normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
@@ -64,9 +66,15 @@ functionDeclaration: functionSignature funcitonBlock;
 
 //===================================================
 // Function Call:
-functionCall: IDENTIFIER ((OP CP) | OP argumentsDeclaration C? CP);
+functionCall: IDENTIFIER arguments;
 
-argumentsDeclaration: expression (C expression)*;
+arguments: OP (positionalArguments (C namedArguments)? | namedArguments)? C? CP;
+
+positionalArguments: expression (C expression)*;
+
+namedArguments: namedArgument (C namedArgument)*;
+
+namedArgument: IDENTIFIER CO expression;
 //===================================================
 
 
@@ -121,7 +129,7 @@ literal: NUMBER
        | objectLiteral
        ;
 
-objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CP (D IDENTIFIER)*;
+objectLiteral: NEW_ IDENTIFIER  arguments (D IDENTIFIER)*;
 
 listLiteral: (OB CB) | OB literal (C literal)* C? CB;
 
