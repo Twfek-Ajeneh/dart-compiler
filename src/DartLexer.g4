@@ -52,31 +52,31 @@ THIS_: 'this';
 TRUE_: 'true';
 VAR_: 'var';
 WHILE_: 'while';
+CONST_: 'const';
 
-TYPEOFVARIABLES : 'int' | 'String' | 'bool' | 'double' ;
-TYPEOFFUNCTION : TYPEOFVARIABLES | 'void';
+TYPE : 'int' | 'float' | 'bool' | 'double' | 'char' | 'void';
 
-NUMBER : DIGIT+ ( '.' DIGIT+ )? ;
-STRING : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"' ;
+NUMBER : DIGIT+ ( '.' DIGIT+ )?;
+STRING : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"';
 
-IDENTIFIER : IDENTIFIER_START IDENTIFIER_PART* ;
+IDENTIFIER : IDENTIFIER_START IDENTIFIER_PART*;
 
-WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip ;
-COMMENT : '//' ~[\r\n]* -> skip ;
+WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip;
+COMMENT : '//' ~[\r\n]* -> skip;
 
 
 // TODO: Elaborate..
-fragment StringDQ : '"' StringContentDQ*? '"' ;
-fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}' ;
-fragment StringSQ : '\'' StringContentSQ*? '\'' ;
-fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringSQ | '${' StringContentSQ*? '}' ;
-fragment StringContentTDQ : ~('\\' | '"') | '"' ~'"' | '""' ~'"' ;
-fragment StringContentTSQ : '\'' ~'\'' | '\'\'' ~'\'' | . ;
+fragment StringDQ : '"' StringContentDQ*? '"';
+fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}';
+fragment StringSQ : '\'' StringContentSQ*? '\'';
+fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringSQ | '${' StringContentSQ*? '}';
+fragment StringContentTDQ : ~('\\' | '"') | '"' ~'"' | '""' ~'"';
+fragment StringContentTSQ : '\'' ~'\'' | '\'\'' ~'\'' | .;
 
-fragment NEWLINE : '\n' | '\r' | '\r\n' ;
+fragment NEWLINE : '\n' | '\r' | '\r\n';
 
-fragment IDENTIFIER_START : LETTER | '_' | '$' ;
-fragment IDENTIFIER_PART : IDENTIFIER_START | DIGIT ;
+fragment IDENTIFIER_START : LETTER | '_' | '$';
+fragment IDENTIFIER_PART : IDENTIFIER_START | DIGIT;
 
-fragment LETTER : 'a' .. 'z' | 'A' .. 'Z' ;
-fragment DIGIT : '0' .. '9' ;
+fragment LETTER : 'a' .. 'z' | 'A' .. 'Z';
+fragment DIGIT : '0' .. '9';

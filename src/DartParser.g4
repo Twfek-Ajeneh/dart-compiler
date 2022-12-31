@@ -11,9 +11,24 @@ declaration: variablesDeclaration
            | functionDeclaration
            ;
 
-variablesDeclaration: (VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER (EQ assignableExpression)? SC;
+//************************************************
+// VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
+finalConstVarOrType: FINAL_ type?
+                   | CONST_ type?
+                   | varOrType
+                   ;
 
-parameterDeclaration: (((VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER C)* ((VAR_ | FINAL_) TYPEOFVARIABLES? IDENTIFIER))?;
+varOrType: VAR_ | type;
+
+type: TYPE | IDENTIFIER;
+
+decalredIdentifier: finalConstVarOrType IDENTIFIER;
+
+variablesDeclaration: decalredIdentifier (C IDENTIFIER)*;
+//************************************************
+
+
+parameterDeclaration: (((VAR_ | FINAL_) TYPE? IDENTIFIER C)* ((VAR_ | FINAL_) TYPE? IDENTIFIER))?;
 
 argumentDeclaration: ((assignableExpression C)* assignableExpression)?;
 
@@ -84,7 +99,7 @@ conditionExpression: conditionExpression AA conditionExpression
                    | assignableExpression
                    ;
 
-forExpression: FOR_ OP (TYPEOFVARIABLES? variablesExpression) conditionExpression SC expression CP OBC blockBody CBC;
+forExpression: FOR_ OP (TYPE? variablesExpression) conditionExpression SC expression CP OBC blockBody CBC;
 
 whileExpression: WHILE_ OP conditionExpression CP OBC blockBody CBC;
 
