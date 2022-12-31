@@ -7,6 +7,10 @@ options { tokenVocab=DartLexer; }
 // Essentials
 program: (functionDeclaration | classDeclaration | statement)* EOF;
 
+statement: importStatement
+         | variableStatement
+         | expression;
+
 declaration: variablesDeclaration
            | classDeclaration
            | functionDeclaration
@@ -53,9 +57,9 @@ normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-funcitonBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
+functionBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
 
-functionDeclaration: functionSignature funcitonBlock;
+functionDeclaration: functionSignature functionBlock;
 
 
 //===================================================
@@ -68,8 +72,6 @@ argumentsDeclaration: assignableExpression (C assignableExpression)*;
 
 //===================================================
 // Class Declaration:
-statement: importStatement;
-
 importStatement: IMPORT_ STRING (AS_ IDENTIFIER)? SC;
 
 classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
