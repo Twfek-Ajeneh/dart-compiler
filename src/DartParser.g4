@@ -56,6 +56,7 @@ normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 funcitonBlock: OBC (semiColonStatement | nonSemiColonStatement)* RETURN_ expression? SC CBC;
 
 functionDeclaration: functionSignature funcitonBlock;
+//===================================================
 
 
 //===================================================
@@ -93,7 +94,6 @@ expression: conditionalExpression
 operationExpression: functionCall
                   | literal
                   | objectContent
-                  | functionDeclaration
                   | IDENTIFIER
                   | operation
                   ;

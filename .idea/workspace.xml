@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35735e0b-0f45-4ad8-aff1-cb9ceff6dee6" name="Default Changelist" comment="">
+    <list default="true" id="35735e0b-0f45-4ad8-aff1-cb9ceff6dee6" name="Default Changelist" comment="Added nonSemiColonStatement">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/antlr_4_11_1_complete.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/antlr_4_11_1_complete.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DartParser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/DartParser.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +33,14 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "D:/antlr-4.11.1-complete.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DIGI TECH\IdeaProjects\dart-compiler\src" />
@@ -160,7 +170,28 @@
       <option name="project" value="LOCAL" />
       <updated>1672495742301</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updated Class Declaration">
+      <created>1672496101621</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1672496101621</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated for statement">
+      <created>1672497730127</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1672497730127</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added nonSemiColonStatement">
+      <created>1672499078362</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1672499078362</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +217,9 @@
     <MESSAGE value="Updated VariablesDeclaration and added TYPE Token" />
     <MESSAGE value="Added variablesInitialization" />
     <MESSAGE value="Fixed Typos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Typos" />
+    <MESSAGE value="Updated Class Declaration" />
+    <MESSAGE value="Updated for statement" />
+    <MESSAGE value="Added nonSemiColonStatement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added nonSemiColonStatement" />
   </component>
 </project>
