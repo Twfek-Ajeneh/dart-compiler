@@ -9,13 +9,9 @@ program: (functionDeclaration | classDeclaration | statement | importStatement)*
 
 semiColonStatement: statement SC;
 
-statement: variableStatement
-         | expression;
+nonSemiColonStatement: forStatement | whileStatement | ifStatement;
 
-declaration: variablesDeclaration
-           | classDeclaration
-           | functionDeclaration
-           ;
+statement: variableStatement | expression;
 
 type: TYPE | IDENTIFIER;
 //===================================================
@@ -57,7 +53,7 @@ normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-funcitonBlock: OBC (semiColonStatement)* RETURN_ expression? SC CBC;
+funcitonBlock: OBC (semiColonStatement | nonSemiColonStatement)* RETURN_ expression? SC CBC;
 
 functionDeclaration: functionSignature funcitonBlock;
 
@@ -144,6 +140,7 @@ operation : OP operation CP
           ;
 //===================================================
 
+
 //===================================================
 // Statements:
 forStatement: FOR_ OP statement SC conditionalExpression SC statement CP statementsBlock;
@@ -154,7 +151,7 @@ ifStatement: IF_ OP conditionalExpression CP statementsBlock (ELSE_ elseIfBlock)
 
 elseIfBlock: statementsBlock | ifStatement;
 
-statementsBlock: OBC (semiColonStatement | breakContinueStatement)* CBC;
+statementsBlock: OBC (semiColonStatement | nonSemiColonStatement | breakContinueStatement)* CBC;
 
 breakContinueStatement: (BREAK_ | CONTINUE_) SC;
 //===================================================
