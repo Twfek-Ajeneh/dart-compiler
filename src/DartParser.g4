@@ -11,7 +11,7 @@ declaration: variablesDeclaration
            | functionDeclaration
            ;
 
-
+type: TYPE | IDENTIFIER;
 
 //************************************************
 // VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
@@ -21,8 +21,6 @@ finalConstVarOrType: FINAL_ type?
                    ;
 
 varOrType: VAR_ | type;
-
-type: TYPE | IDENTIFIER;
 
 declaredIdentifier: finalConstVarOrType IDENTIFIER;
 
