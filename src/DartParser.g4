@@ -11,6 +11,8 @@ declaration: variablesDeclaration
            | functionDeclaration
            ;
 
+
+
 //************************************************
 // VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
 finalConstVarOrType: FINAL_ type?
@@ -22,10 +24,22 @@ varOrType: VAR_ | type;
 
 type: TYPE | IDENTIFIER;
 
-decalredIdentifier: finalConstVarOrType IDENTIFIER;
+declaredIdentifier: finalConstVarOrType IDENTIFIER;
 
-variablesDeclaration: decalredIdentifier (C IDENTIFIER)*;
+variablesDeclaration: declaredIdentifier (C IDENTIFIER)*;
 //************************************************
+
+
+
+//************************************************
+// VariableS Initialization: int x = 30, y, z | int x = 30, y = 40, z | x = 50, y = 50, z = 40;
+initializedVariableDeclaration: declaredIdentifier (EQ expression)? (C initializedIdentifier)*;
+
+initializedIdentifier: IDENTIFIER (EQ expression)?;
+
+initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
+//************************************************
+
 
 
 parameterDeclaration: (((VAR_ | FINAL_) TYPE? IDENTIFIER C)* ((VAR_ | FINAL_) TYPE? IDENTIFIER))?;

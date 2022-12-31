@@ -54,7 +54,7 @@ VAR_: 'var';
 WHILE_: 'while';
 CONST_: 'const';
 
-TYPE : 'int' | 'float' | 'bool' | 'double' | 'char' | 'void';
+TYPE : 'int' | 'bool' | 'double' | 'char' | 'void';
 
 NUMBER : DIGIT+ ( '.' DIGIT+ )?;
 STRING : StringDQ | StringSQ | 'r\'' (~('\'' | '\n' | '\r'))* '\'' | 'r"' (~('"' | '\n' | '\r'))* '"';
