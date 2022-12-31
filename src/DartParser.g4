@@ -27,8 +27,6 @@ declaredIdentifier: finalConstVarOrType IDENTIFIER;
 variablesDeclaration: declaredIdentifier (C IDENTIFIER)*;
 //************************************************
 
-
-
 //************************************************
 // VariableS Initialization: int x = 30, y, z | int x = 30, y = 40, z | x = 50, y = 50, z = 40;
 initializedVariableDeclaration: declaredIdentifier (EQ expression)? (C initializedIdentifier)*;
@@ -38,15 +36,27 @@ initializedIdentifier: IDENTIFIER (EQ expression)?;
 initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
 //************************************************
 
+//************************************************
+statement: importStatement;
 
+importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
+
+variableStatement: (variablesDeclaration | initializedVariableDeclaration | initializedIdentifierList) SC;
+//************************************************
+
+//************************************************
+classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classMemberDefinition CBC;
+
+classMemberDefinition: variableStatement*  classConstructor? functionDeclaration*;
+
+classConstructor: IDENTIFIER parameters classConstructorBody;
+
+classConstructorBody: OBC statement* CBC;
+//************************************************
 
 parameterDeclaration: (((VAR_ | FINAL_) TYPE? IDENTIFIER C)* ((VAR_ | FINAL_) TYPE? IDENTIFIER))?;
 
 argumentDeclaration: ((assignableExpression C)* assignableExpression)?;
-
-classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classBody CBC;
-
-classConstructor: IDENTIFIER OP parameterDeclaration CP OBC blockBody CBC;
 
 functionDeclaration: TYPEOFFUNCTION IDENTIFIER OP parameterDeclaration CP OBC blockBody RETURN_  assignableExpression? SC CBC;
 
@@ -79,12 +89,6 @@ operation : OP operation CP
           ;
 
 blockBody: (variablesDeclaration | expression)*;
-
-classBody : variablesDeclaration* classConstructor? functionDeclaration*;
-
-statement: importStatement;
-
-importStatement: IMPORT_  STRING  (AS_ IDENTIFIER)? SC;
 
 expression: assignableExpression
           | variablesExpression
