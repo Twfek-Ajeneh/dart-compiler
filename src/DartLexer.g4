@@ -64,12 +64,15 @@ IDENTIFIER : IDENTIFIER_START IDENTIFIER_PART* ;
 WHITESPACE : ( '\t' | ' ' | NEWLINE )+  -> skip ;
 COMMENT : '//' ~[\r\n]* -> skip ;
 
+
+// TODO: Elaborate..
 fragment StringDQ : '"' StringContentDQ*? '"' ;
 fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}' ;
 fragment StringSQ : '\'' StringContentSQ*? '\'' ;
 fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringSQ | '${' StringContentSQ*? '}' ;
 fragment StringContentTDQ : ~('\\' | '"') | '"' ~'"' | '""' ~'"' ;
 fragment StringContentTSQ : '\'' ~'\'' | '\'\'' ~'\'' | . ;
+
 fragment NEWLINE : '\n' | '\r' | '\r\n' ;
 
 fragment IDENTIFIER_START : LETTER | '_' | '$' ;

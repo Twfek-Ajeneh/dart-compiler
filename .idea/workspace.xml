@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35735e0b-0f45-4ad8-aff1-cb9ceff6dee6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DartLexer.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/DartLexer.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DartParser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/DartParser.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gen/DartLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/gen/DartLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gen/DartLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gen/DartLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672475555810</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Removed unnecessary fragments in DartLexer.g4">
+      <created>1672477526449</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1672477526449</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +163,7 @@
     <MESSAGE value="Setted up project structure" />
     <MESSAGE value="Added .gitignore" />
     <MESSAGE value="Refactoring.." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring.." />
+    <MESSAGE value="Removed unnecessary fragments in DartLexer.g4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed unnecessary fragments in DartLexer.g4" />
   </component>
 </project>
