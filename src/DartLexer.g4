@@ -62,9 +62,9 @@ COMMENT : '//' ~[\r\n]* -> skip;
 
 // main fregment
 fragment StringDQ : '"' StringContentDQ*? '"' ;
-fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}' | '$' { CheckNotOpenBrace() }? ;
+fragment StringContentDQ : ~('\\' | '"' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringDQ | '${' StringContentDQ*? '}' ;
 fragment StringSQ : '\'' StringContentSQ*? '\'' ;
-fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringSQ | '${' StringContentSQ*? '}' | '$' { CheckNotOpenBrace() }? ;
+fragment StringContentSQ : ~('\\' | '\'' | '\n' | '\r' | '$') | '\\' ~('\n' | '\r') | StringSQ | '${' StringContentSQ*? '}' ;
 fragment StringContentTDQ : ~('\\' | '"') | '"' ~'"' | '""' ~'"' ;
 fragment StringContentTSQ : '\'' ~'\'' | '\'\'' ~'\'' | . ;
 fragment NEWLINE : '\n' | '\r' | '\r\n' ;
