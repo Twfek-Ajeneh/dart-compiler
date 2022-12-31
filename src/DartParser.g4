@@ -2,18 +2,22 @@ parser grammar DartParser;
 
 options { tokenVocab=DartLexer; }
 
-program: (functionDeclaration | classDeclaration | statement)* EOF;
+
+//===================================================
+// Essentials
+program: (functionDeclaration /*| classDeclaration*/ | statement)* EOF;
 
 declaration: variablesDeclaration
-           | parameterDeclaration
-           | argumentDeclaration
-           | classDeclaration
+           | argumentsDeclaration
+           | /* classDeclaration */
            | functionDeclaration
            ;
 
 type: TYPE | IDENTIFIER;
+//===================================================
 
-//************************************************
+
+//===================================================
 // VariableS Declaration: int x, y, z | final x, y, z | const x, y, z, | var x, y, z;
 finalConstVarOrType: FINAL_ type?
                    | CONST_ type?
@@ -25,32 +29,46 @@ varOrType: VAR_ | type;
 declaredIdentifier: finalConstVarOrType IDENTIFIER;
 
 variablesDeclaration: declaredIdentifier (C IDENTIFIER)*;
-//************************************************
+//===================================================
 
 
-
-//************************************************
+//===================================================
 // VariableS Initialization: int x = 30, y, z | int x = 30, y = 40, z | x = 50, y = 50, z = 40;
-initializedVariableDeclaration: declaredIdentifier (EQ expression)? (C initializedIdentifier)*;
+initializedVariableDeclaration: declaredIdentifier (EQ assignableExpression)? (C initializedIdentifier)*;
 
-initializedIdentifier: IDENTIFIER (EQ expression)?;
+initializedIdentifier: IDENTIFIER (EQ assignableExpression)?;
 
 initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
-//************************************************
+//===================================================
 
 
+//===================================================
+// Function Declaration:
+functionSignature: type? IDENTIFIER parameters;
 
-parameterDeclaration: (((VAR_ | FINAL_) TYPE? IDENTIFIER C)* ((VAR_ | FINAL_) TYPE? IDENTIFIER))?;
+parameters: (OP CP | OP normalFormalParameters C? CP);
 
-argumentDeclaration: ((assignableExpression C)* assignableExpression)?;
+normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
-classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classBody CBC;
+normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-classConstructor: IDENTIFIER OP parameterDeclaration CP OBC blockBody CBC;
+funcitonBlock: OBC (statement)* RETURN_ assignableExpression? SC CBC;
 
-functionDeclaration: TYPEOFFUNCTION IDENTIFIER OP parameterDeclaration CP OBC blockBody RETURN_  assignableExpression? SC CBC;
+functionDeclaration: functionSignature funcitonBlock;
+//===================================================
 
-functionCall: IDENTIFIER OP argumentDeclaration CP SC;
+
+//===================================================
+// Function Call:
+functionCall: IDENTIFIER ((OP CP) | OP argumentsDeclaration C? CP);
+
+argumentsDeclaration: assignableExpression (C assignableExpression)*;
+//===================================================
+
+
+//classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? OBC classBody CBC;
+//
+//classConstructor: IDENTIFIER OP parameterDeclaration CP OBC blockBody CBC;
 
 literal: NUMBER
        | STRING
@@ -61,7 +79,7 @@ literal: NUMBER
        | objectLiteral
        ;
 
-objectLiteral: NEW_ IDENTIFIER OP argumentDeclaration CB (C IDENTIFIER)*;
+objectLiteral: NEW_ IDENTIFIER OP argumentsDeclaration CB (C IDENTIFIER)*;
 
 objectContent: IDENTIFIER (D IDENTIFIER)+;
 
@@ -80,7 +98,7 @@ operation : OP operation CP
 
 blockBody: (variablesDeclaration | expression)*;
 
-classBody : variablesDeclaration* classConstructor? functionDeclaration*;
+//classBody : variablesDeclaration* classConstructor? functionDeclaration*;
 
 statement: importStatement;
 

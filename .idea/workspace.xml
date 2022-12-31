@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35735e0b-0f45-4ad8-aff1-cb9ceff6dee6" name="Default Changelist" comment="">
+    <list default="true" id="35735e0b-0f45-4ad8-aff1-cb9ceff6dee6" name="Default Changelist" comment="Tiny Change">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DartParser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/DartParser.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gen/DartLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/gen/DartLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gen/DartLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gen/DartLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gen/DartLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/gen/DartLexer.tokens" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +40,7 @@
   "keyToString": {
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_opened_file_path": "C:/Users/DIGI TECH/IdeaProjects/The-Real-Problem",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
@@ -163,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672480266557</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Tiny Change">
+      <created>1672480295447</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1672480295447</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,9 +197,9 @@
     <MESSAGE value="Added .gitignore" />
     <MESSAGE value="Refactoring.." />
     <MESSAGE value="Removed unnecessary fragments in DartLexer.g4" />
-    <MESSAGE value="Tiny Change" />
     <MESSAGE value="Updated VariablesDeclaration and added TYPE Token" />
     <MESSAGE value="Added variablesInitialization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added variablesInitialization" />
+    <MESSAGE value="Tiny Change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tiny Change" />
   </component>
 </project>
