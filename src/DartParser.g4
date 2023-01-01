@@ -48,7 +48,7 @@ initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
 
 //===================================================
 // Function Declaration:
-functionSignature: type? IDENTIFIER parameters;
+functionSignature: type IDENTIFIER parameters;
 
 parameters: OP CP
           | OP normalFormalParameters C namedParameters CP
