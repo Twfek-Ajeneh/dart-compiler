@@ -3,21 +3,24 @@ package compiler;
 import java.util.ArrayList;
 
 public class AstNode {
-    private final String rule;
+    private final Type type;
     private final AstNode parent;
     private final int lineNumber;
+    private final String value;
+
 
     private final ArrayList<AstNode> children;
 
-    public AstNode(String rule, AstNode parent, int lineNumber, ArrayList<AstNode> children) {
-        this.rule = rule;
+    public AstNode(Type type, AstNode parent, int lineNumber , String value, ArrayList<AstNode> children) {
+        this.type = type;
         this.parent = parent;
         this.lineNumber = lineNumber;
         this.children = children;
+        this.value = value;
     }
 
-    public String getRule() {
-        return rule;
+    public Type getType() {
+        return type;
     }
 
     public AstNode getParent() {
@@ -44,9 +47,10 @@ public class AstNode {
     @Override
     public String toString() {
         return "AstNode {\n" +
-                "   rule = " + rule + ",\n" +
+                "   type = " + type + ",\n" +
                 "   parent = " + parent + ",\n" +
                 "   lineNumber = " + lineNumber + ",\n" +
+                "   value = " + value + "\n" +
                 "}";
     }
 }

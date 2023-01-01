@@ -61,9 +61,9 @@ normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
 normalFormalParameter: finalConstVarOrType? IDENTIFIER;
 
-funcitonBlock: OBC (semiColonStatement | nonSemiColonStatement)* RETURN_ expression? SC CBC;
+functionBlock: OBC (semiColonStatement | nonSemiColonStatement)* RETURN_ expression? SC CBC;
 
-functionDeclaration: functionSignature funcitonBlock;
+functionDeclaration: functionSignature functionBlock;
 //===================================================
 
 
@@ -92,13 +92,13 @@ classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? classBlock;
 
 classBlock: OBC classMemberDefinition* CBC;
 
-classMemberDefinition: variableStatement
+classMemberDefinition: (variableStatement SC)
                      | classConstructor
                      | functionDeclaration;
 
 classConstructor: IDENTIFIER parameters classConstructorBody;
 
-classConstructorBody: OBC semiColonStatement* CBC;
+classConstructorBody: OBC (nonSemiColonStatement | semiColonStatement)* CBC;
 //===================================================
 
 
