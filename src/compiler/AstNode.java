@@ -31,4 +31,22 @@ public class AstNode {
     public ArrayList<AstNode> getChildren() {
         return children;
     }
+
+    public static void printTree(AstNode astNode) {
+        System.out.println(astNode.toString());
+        for (AstNode child : astNode.children) {
+            if(child != null) {
+                printTree(child);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "AstNode {\n" +
+                "   rule = " + rule + ",\n" +
+                "   parent = " + parent + ",\n" +
+                "   lineNumber = " + lineNumber + ",\n" +
+                "}";
+    }
 }

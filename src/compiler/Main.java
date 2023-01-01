@@ -8,11 +8,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.Arrays;
-
 public class Main {
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception {
             String filePath = "C:\\Users\\DIGI TECH\\IdeaProjects\\dart-compiler\\src\\compiler/hello.txt";
             CharStream input = CharStreams.fromFileName(filePath);
             DartLexer lexer = new DartLexer(input);
@@ -20,9 +17,7 @@ public class Main {
             DartParser parser = new DartParser(tokens);
             ParseTree tree = parser.program();
             DartParserVisitor dartParserVisitor = new DartParserVisitor();
-            AstNode root = (AstNode) dartParserVisitor.visit(tree);
-        } catch (Exception ex) {
-            System.out.println(ex.getLocalizedMessage());
-        }
+            AstNode root = dartParserVisitor.visit(tree);
+            AstNode.printTree(root);
     }
 }

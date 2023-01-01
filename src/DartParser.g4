@@ -5,7 +5,7 @@ options { tokenVocab=DartLexer; }
 
 //===================================================
 // Essentials
-program: (functionDeclaration | classDeclaration | (variablesDeclaration SC) | importStatement)* EOF;
+program: (functionDeclaration | classDeclaration | importStatement)* EOF;
 
 semiColonStatement: statement SC;
 
