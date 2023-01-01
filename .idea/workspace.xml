@@ -191,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672499078362</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Removed functionDeclaration from operationExpression">
+      <created>1672507237769</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1672507237769</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +227,7 @@
     <MESSAGE value="Updated Class Declaration" />
     <MESSAGE value="Updated for statement" />
     <MESSAGE value="Added nonSemiColonStatement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added nonSemiColonStatement" />
+    <MESSAGE value="Removed functionDeclaration from operationExpression" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed functionDeclaration from operationExpression" />
   </component>
 </project>

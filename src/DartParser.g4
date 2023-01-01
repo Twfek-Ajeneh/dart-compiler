@@ -50,9 +50,12 @@ initializedIdentifierList: initializedIdentifier (C initializedIdentifier)*;
 // Function Declaration:
 functionSignature: type? IDENTIFIER parameters;
 
-parameters: (OP CP | OP (normalFormalParameters  (C namedParameters)* | namedParameters) C? CP);
+parameters: OP CP
+          | OP normalFormalParameters C namedParameters CP
+          | OP normalFormalParameters C? CP
+          | OP namedParameters CP;
 
-namedParameters: OBC normalFormalParameters* CBC;
+namedParameters: OBC normalFormalParameters C? CBC;
 
 normalFormalParameters: normalFormalParameter (C normalFormalParameter)*;
 
@@ -68,7 +71,10 @@ functionDeclaration: functionSignature funcitonBlock;
 // Function Call:
 functionCall: IDENTIFIER arguments;
 
-arguments: OP (positionalArguments (C namedArguments)? | namedArguments)? C? CP;
+arguments: OP CP
+         | OP positionalArguments C namedArguments C? CP
+         | OP positionalArguments C? CP
+         | OP namedArguments CP;
 
 positionalArguments: expression (C expression)*;
 
