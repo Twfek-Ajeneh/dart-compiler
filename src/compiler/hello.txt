@@ -1,15 +1,3 @@
-import "hi";
-
-void main() {
-    final int x = 1;
-    return 4;
-}
-
-class Car{
-    final int x = 1;
-    Car(){
-        while(true){
-            print("Fuck Bassem");
-        }
-    }
+void main(){
+    return ;
 }

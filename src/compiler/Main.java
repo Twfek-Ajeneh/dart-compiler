@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-            String filePath = "./hello.txt";
+            String filePath = "C:\\Users\\Twfek Ajeneh\\Desktop\\Collage\\Forth year\\Chapter one\\Practical\\Compiler\\Final-Project\\dart-compiler\\src\\compiler/hello.txt";
             CharStream input = CharStreams.fromFileName(filePath);
             DartLexer lexer = new DartLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -18,6 +18,7 @@ public class Main {
             ParseTree tree = parser.program();
             DartParserVisitor dartParserVisitor = new DartParserVisitor();
             AstNode root = dartParserVisitor.visit(tree);
+            dartParserVisitor.getSymbolTable();
             AstNode.printTree(root);
     }
 }

@@ -5,10 +5,21 @@ import compiler.Type;
 import gen.DartParser;
 import gen.DartParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
+
+    HashMap <String,String> symbolTable = new HashMap<>();
+
+    public void getSymbolTable (){
+        for (String key : symbolTable.keySet()) {
+            System.out.println(key + " : " + symbolTable.get(key));
+        }
+    }
+
     @Override
     public AstNode visitProgram(DartParser.ProgramContext ctx) {
         ArrayList<AstNode> arrayList = new ArrayList<>();
@@ -87,6 +98,7 @@ public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
         for (ParseTree child : ctx.children) {
             arrayList.add(visit(child));
         }
+        symbolTable.put(ctx.IDENTIFIER().getText(),null);
         return new AstNode(Type.Variables, null, ctx.start.getLine(), ctx.getText(), arrayList);
     }
 
@@ -96,6 +108,8 @@ public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
         for (ParseTree child : ctx.children) {
             arrayList.add(visit(child));
         }
+        for (TerminalNode variable : ctx.IDENTIFIER())
+            symbolTable.put(variable.getText(),null);
         return new AstNode(Type.Variables, null, ctx.start.getLine(), ctx.getText(), arrayList);
     }
 
@@ -105,6 +119,10 @@ public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
         for (ParseTree child : ctx.children) {
             arrayList.add(visit(child));
         }
+        if(ctx.getChild(2) != null)
+            symbolTable.put(ctx.declaredIdentifier().IDENTIFIER().getText(),ctx.getChild(2).getText());
+        else
+            symbolTable.put(ctx.declaredIdentifier().IDENTIFIER().getText(),null);
         return new AstNode(Type.Variables, null, ctx.start.getLine(), ctx.getText(), arrayList);
     }
 
@@ -132,6 +150,10 @@ public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
         for (ParseTree child : ctx.children) {
             arrayList.add(visit(child));
         }
+        if(ctx.getChild(2) != null)
+            symbolTable.put(ctx.IDENTIFIER().getText(),ctx.getChild(2).getText());
+        else
+            symbolTable.put(ctx.IDENTIFIER().getText(),null);
         return new AstNode(Type.Variables, null, ctx.start.getLine(), ctx.getText(), arrayList);
     }
 
