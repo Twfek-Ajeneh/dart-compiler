@@ -288,16 +288,6 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitClassBlock(DartParser.ClassBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DartParser#classMemberDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void enterClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#classMemberDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void exitClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DartParser#classConstructor}.
 	 * @param ctx the parse tree
 	 */

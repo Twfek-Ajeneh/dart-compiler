@@ -179,12 +179,6 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassBlock(DartParser.ClassBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#classMemberDefinition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DartParser#classConstructor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

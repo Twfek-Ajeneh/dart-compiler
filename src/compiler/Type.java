@@ -1,6 +1,5 @@
 package compiler;
 
-
 public enum Type {
     Program("Program"),
     Function_Declaration("Function Declaration"),
@@ -9,7 +8,6 @@ public enum Type {
     Statements("Statements"),
     Variables("Variables"),
     Other("Other");
-
 
     private final String name;
 

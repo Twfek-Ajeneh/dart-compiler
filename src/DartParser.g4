@@ -90,11 +90,13 @@ importStatement: IMPORT_ STRING (AS_ IDENTIFIER)? SC;
 
 classDeclaration : CLASS_ IDENTIFIER (EXTENDS_ IDENTIFIER)? classBlock;
 
-classBlock: OBC classMemberDefinition* CBC;
+classBlock: OBC (variableStatement SC)* classConstructor? functionDeclaration*  CBC;
 
-classMemberDefinition: (variableStatement SC)
-                     | classConstructor
-                     | functionDeclaration;
+// classBlock: OBC classMemberDefinition* CBC;
+
+//classMemberDefinition: (variableStatement SC)
+//                     | classConstructor
+//                     | functionDeclaration;
 
 classConstructor: IDENTIFIER parameters classConstructorBody;
 

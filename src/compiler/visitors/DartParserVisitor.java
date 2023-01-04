@@ -283,14 +283,14 @@ public class DartParserVisitor extends DartParserBaseVisitor<AstNode> {
         return new AstNode(Type.Class_Declaration, null, ctx.start.getLine(), ctx.getText(), arrayList);
     }
 
-    @Override
-    public AstNode visitClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx) {
-        ArrayList<AstNode> arrayList = new ArrayList<>();
-        for (ParseTree child : ctx.children) {
-            arrayList.add(visit(child));
-        }
-        return new AstNode(Type.Class_Declaration, null, ctx.start.getLine(), ctx.getText(), arrayList);
-    }
+//    @Override
+//    public AstNode visitClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx) {
+//        ArrayList<AstNode> arrayList = new ArrayList<>();
+//        for (ParseTree child : ctx.children) {
+//            arrayList.add(visit(child));
+//        }
+//        return new AstNode(Type.Class_Declaration, null, ctx.start.getLine(), ctx.getText(), arrayList);
+//    }
 
     @Override
     public AstNode visitClassConstructor(DartParser.ClassConstructorContext ctx) {

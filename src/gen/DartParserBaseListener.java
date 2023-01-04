@@ -353,18 +353,6 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitClassMemberDefinition(DartParser.ClassMemberDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterClassConstructor(DartParser.ClassConstructorContext ctx) { }
 	/**
 	 * {@inheritDoc}
