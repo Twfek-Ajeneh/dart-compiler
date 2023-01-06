@@ -73,6 +73,9 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         else{
             list.addAll(visitInitializedIdentifierList(ctx.initializedIdentifierList()));
         }
+        for (VariableStatement statement : list) {
+            symbolTable.put(statement.getName(),statement.getVariableValue());
+        }
         return list;
     }
 
@@ -91,7 +94,6 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
     public Pair<String , String> visitDeclaredIdentifier(DartParser.DeclaredIdentifierContext ctx) {
         String type = ctx.finalConstVarOrType().getText();
         String name = ctx.IDENTIFIER().getText();
-        symbolTable.put(name,null);
         return new Pair<String , String>(type , name);
     }
 
@@ -102,7 +104,6 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         list.add(new VariableStatement(ctx.start.getLine() , ctx.getText() , firstDeclare.a , firstDeclare.b , ""));
         for (TerminalNode item : ctx.IDENTIFIER()){
             list.add(new VariableStatement(ctx.start.getLine() , ctx.getText() , firstDeclare.a , item.getText() , ""));
-            symbolTable.put(item.getText(),null);
         }
         return list;
     }
@@ -112,8 +113,6 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         ArrayList<VariableStatement> list = new ArrayList<>();
         Pair<String , String> firstDeclare = visitDeclaredIdentifier(ctx.declaredIdentifier());
         list.add(new VariableStatement(ctx.start.getLine() , ctx.getText() , firstDeclare.a , firstDeclare.b , ctx.expression().getText()));
-        if(ctx.getChild(2) != null)
-            symbolTable.put(firstDeclare.b,ctx.getChild(2).getText());
         for (DartParser.InitializedIdentifierContext item : ctx.initializedIdentifier()) {
             Pair<String , String> temp = visitInitializedIdentifier(item);
             list.add(new VariableStatement(ctx.start.getLine() , ctx.getText() , firstDeclare.a , temp.a , temp.b));
@@ -127,7 +126,6 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         String name = ctx.IDENTIFIER().getText();
         String value = "";
         if(ctx.expression() != null) value = ctx.expression().getText();
-        symbolTable.put(name,value);
         return new Pair<String ,String>(name , value);
     }
 

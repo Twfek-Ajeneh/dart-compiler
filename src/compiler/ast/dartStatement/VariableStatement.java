@@ -11,4 +11,8 @@ public class VariableStatement extends Statement{
         this.name = name;
         this.variableValue = variableValue;
     }
+	
+	public String getName(){ return name; }
+
+    public String getVariableValue(){ return variableValue; }
 }
