@@ -1,4 +1,7 @@
 void main(){
     final int x = 0;
+    var y , w, a;
+    y = 20;
+    final z = "HIIII";
     return 1;
 }
