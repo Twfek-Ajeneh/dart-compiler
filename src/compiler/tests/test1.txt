@@ -1,7 +1,13 @@
 void main(){
-    final int x = 0;
-    var y , w, a;
-    y = 20;
-    final z = "HIIII";
+    final int a = 1;
     return 1;
+}
+
+class test{
+    final int a = 1;
+
+    int hello (){
+        print("sdfasd");
+        return 1;
+    }
 }

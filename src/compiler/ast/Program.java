@@ -2,6 +2,8 @@ package compiler.ast;
 
 import compiler.ast.dartStatement.ImportStatement;
 import compiler.ast.dartStatement.Statement;
+import compiler.utils.Edge;
+import org.jgrapht.graph.DefaultDirectedGraph;
 
 import java.util.ArrayList;
 
@@ -18,13 +20,26 @@ public class Program {
         this.value = value;
     }
 
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+        directedGraph.addVertex(this);
+        for (ImportStatement anImport : importsStatement) {
+            directedGraph.addEdge(this, anImport);
+        }
+        for (DartFunction function : functions) {
+            directedGraph.addEdge(this,function);
+        }
+        for (DartClass aClass : classes) {
+            directedGraph.addEdge(this, aClass);
+        }
+    }
+
+
     @Override
     public String toString() {
         return "Program{" +
-                "  \n importsStatement=" + importsStatement.size() +
-                "  \n functions=" + functions.size() +
-                "  \n classes=" + classes.size() +
-                "  \n value='" + value + '\'' +
+                "  \n Number of import =" + importsStatement.size() +
+                "  \n Number of functions=" + functions.size() +
+                "  \n Number of classes=" + classes.size() +
                 "\n}";
     }
 }

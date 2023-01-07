@@ -19,6 +19,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -44,7 +45,7 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         layout.execute(graphAdapter.getDefaultParent());
         BufferedImage image =
                 mxCellRenderer.createBufferedImage(graphAdapter, null, 2, Color.WHITE, true, null);
-        File imgFile = new File("D:/graph.png");
+        File imgFile = new File("C:\\Users\\Twfek Ajeneh\\Desktop\\New folder/graph.png");
         ImageIO.write(image, "PNG", imgFile);
     }
 
@@ -56,40 +57,36 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         for (ImportStatementContext item : ctx.importStatement()) {
             ImportStatement importStatement = visitImportStatement(item);
             imports.add(importStatement);
-            directedGraph.addVertex(importStatement);
+
         }
         for (DartParser.FunctionDeclarationContext item : ctx.functionDeclaration()) {
             DartFunction dartFunction = visitFunctionDeclaration(item);
             functions.add(dartFunction);
-            directedGraph.addVertex(dartFunction);
+
         }
         for (DartParser.ClassDeclarationContext item : ctx.classDeclaration()) {
             DartClass dartClass = visitClassDeclaration(item);
-            directedGraph.addVertex(dartClass);
             classes.add(dartClass);
         }
         Program program = new Program(imports, functions, classes, ctx.getText());
-        directedGraph.addVertex(program);
-        for (ImportStatement anImport : imports) {
-            directedGraph.addEdge(program, anImport);
-        }
-        for (DartFunction function : functions) {
-            directedGraph.addEdge(program, function);
-        }
-        for (DartClass aClass : classes) {
-            directedGraph.addEdge(program, aClass);
-        }
+        program.addToTree(directedGraph);
         return program;
     }
 
     @Override
     public ArrayList<Statement> visitSemiColonStatement(DartParser.SemiColonStatementContext ctx) {
-        return visitStatement(ctx.statement());
+        ArrayList<Statement> list = visitStatement(ctx.statement());
+        for (Statement item : list) {
+            item.addToTree(directedGraph);
+        }
+        return list;
     }
 
     @Override
     public Statement visitNonSemiColonStatement(DartParser.NonSemiColonStatementContext ctx) {
-        return (Statement) visit(ctx.getChild(0));
+        Statement statement = (Statement) visit(ctx.getChild(0));
+        statement.addToTree(directedGraph);
+        return statement;
     }
 
     @Override
@@ -97,6 +94,9 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         ArrayList<Statement> list = new ArrayList<>();
         if (ctx.variableStatement() != null) list.addAll(visitVariableStatement(ctx.variableStatement()));
         if (ctx.expression() != null) list.add(visitExpression(ctx.expression()));
+        for (Statement item : list) {
+            item.addToTree(directedGraph);
+        }
         return list;
     }
 
@@ -117,7 +117,7 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         }
         for (VariableStatement statement : list) {
             symbolTable.put(statement.getName(), statement.getVariableValue());
-
+            statement.addToTree(directedGraph);
         }
         return list;
     }
@@ -148,6 +148,7 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         for (TerminalNode item : ctx.IDENTIFIER()) {
             list.add(new VariableStatement(ctx.start.getLine(), ctx.getText(), firstDeclare.a, item.getText(), ""));
         }
+
         return list;
     }
 
@@ -227,7 +228,13 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
     public DartFunction visitFunctionDeclaration(DartParser.FunctionDeclarationContext ctx) {
         ArrayList<String> functionSignature = visitFunctionSignature(ctx.functionSignature());
         Pair<ArrayList<Statement>, ExpressionStatement> functionBlock = visitFunctionBlock(ctx.functionBlock());
-        return new DartFunction(ctx.start.getLine(), ctx.getText(), functionSignature.get(1), functionSignature.get(0), functionSignature.get(2), functionBlock.a, functionBlock.b);
+        for (Statement item : functionBlock.a) {
+            item.addToTree(directedGraph);
+        }
+        functionBlock.b.addToTree(directedGraph);
+        DartFunction function = new DartFunction(ctx.start.getLine(), ctx.getText(), functionSignature.get(1), functionSignature.get(0), functionSignature.get(2), functionBlock.a, functionBlock.b);
+        function.addToTree(directedGraph);
+        return function;
     }
 
     @Override
@@ -257,10 +264,12 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
 
     @Override
     public ImportStatement visitImportStatement(DartParser.ImportStatementContext ctx) {
-        if (ctx.IDENTIFIER() == null)
-            return new ImportStatement(ctx.start.getLine(), ctx.getText(), ctx.getChild(2).getText());
-        else
-            return new ImportStatement(ctx.start.getLine(), ctx.getText(), ctx.getChild(1).getText(), ctx.IDENTIFIER().getText());
+        ImportStatement importStatement = (ctx.IDENTIFIER() == null
+                    ?  new ImportStatement(ctx.start.getLine(), ctx.getText(), ctx.getChild(2).getText())
+                    :  new ImportStatement(ctx.start.getLine(), ctx.getText(), ctx.getChild(1).getText(), ctx.IDENTIFIER().getText())
+                );
+        importStatement.addToTree(directedGraph);
+        return importStatement;
     }
 
     @Override
@@ -275,7 +284,16 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
             variableList.addAll(visitVariableStatement(item));
         for (DartParser.FunctionDeclarationContext item : ctx.classBlock().functionDeclaration())
             functionList.add(visitFunctionDeclaration(item));
-        return new DartClass(
+        for (Statement item : constructor.b) {
+            item.addToTree(directedGraph);
+        }
+        for (VariableStatement item : variableList) {
+            item.addToTree(directedGraph);
+        }
+        for (DartFunction item : functionList) {
+            item.addToTree(directedGraph);
+        }
+        DartClass dartClass = new DartClass(
                 ctx.start.getLine(),
                 ctx.getText(),
                 ctx.getChild(1).getText(),
@@ -285,6 +303,8 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
                 constructor.b,
                 parent
         );
+        dartClass.addToTree(directedGraph);
+        return dartClass;
     }
 
     @Override
@@ -311,7 +331,9 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
 
     @Override
     public ExpressionStatement visitExpression(DartParser.ExpressionContext ctx) {
-        return new ExpressionStatement(ctx.start.getLine(), ctx.getText());
+        ExpressionStatement expressionStatement = new ExpressionStatement(ctx.start.getLine(), ctx.getText());
+        expressionStatement.addToTree(directedGraph);
+        return expressionStatement;
     }
 
     @Override
@@ -320,8 +342,10 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
     }
 
     @Override
-    public String visitConditionalExpression(DartParser.ConditionalExpressionContext ctx) {
-        return ctx.getText();
+    public ExpressionStatement visitConditionalExpression(DartParser.ConditionalExpressionContext ctx) {
+        ExpressionStatement expressionStatement = new ExpressionStatement(ctx.start.getLine(), ctx.getText());
+        expressionStatement.addToTree(directedGraph);
+        return expressionStatement;
     }
 
     @Override
@@ -353,23 +377,24 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
     public ForStatement visitForStatement(DartParser.ForStatementContext ctx) {
         Statement beginStatement = visitStatement(ctx.statement().get(0)).get(0);
         Statement endStatement = visitStatement(ctx.statement().get(ctx.statement().size() - 1)).get(0);
-        String condition = visitConditionalExpression(ctx.conditionalExpression());
+        ExpressionStatement condition = visitConditionalExpression(ctx.conditionalExpression());
         ArrayList<Statement> body = visitStatementsBlock(ctx.statementsBlock());
         return new ForStatement(ctx.start.getLine(), ctx.getText(), beginStatement, condition, endStatement, body);
     }
 
     @Override
     public WhileStatement visitWhileStatement(DartParser.WhileStatementContext ctx) {
-        String condition = visitConditionalExpression(ctx.conditionalExpression());
+        ExpressionStatement condition = visitConditionalExpression(ctx.conditionalExpression());
         ArrayList<Statement> body = visitStatementsBlock(ctx.statementsBlock());
         return new WhileStatement(ctx.start.getLine(), ctx.getText(), condition, body);
     }
 
     @Override
     public IfStatement visitIfStatement(DartParser.IfStatementContext ctx) {
-        String condition = visitConditionalExpression(ctx.conditionalExpression());
+        ExpressionStatement condition = visitConditionalExpression(ctx.conditionalExpression());
         ArrayList<Statement> body = visitStatementsBlock(ctx.statementsBlock());
         ArrayList<Statement> elseBlock = visitElseIfBlock(ctx.elseIfBlock());
+
         return new IfStatement(ctx.start.getLine(), ctx.getText(), condition, body, elseBlock);
     }
 
@@ -379,6 +404,9 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         if (ctx.ifStatement() != null) list.add(visitIfStatement(ctx.ifStatement()));
         if (ctx.statementsBlock() != null)
             list.addAll(visitStatementsBlock(ctx.statementsBlock())); // check return from statement block
+        for (Statement item : list) {
+            item.addToTree(directedGraph);
+        }
         return list;
     }
 
@@ -391,6 +419,9 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
             list.add(visitNonSemiColonStatement(item));
         for (DartParser.SemiColonStatementContext item : ctx.semiColonStatement())
             list.addAll(visitSemiColonStatement(item));
+        for (Statement item : list) {
+            item.addToTree(directedGraph);
+        }
         return list;
     }
 
