@@ -5,10 +5,11 @@ import compiler.ast.dartStatement.Statement;
 import compiler.utils.Edge;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DartFunction {
+    private final Date date = new Date();
     private final int lineNumber;
     private final String value;
     private final String name;
@@ -28,22 +29,27 @@ public class DartFunction {
     }
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+        String nameKey = getKey(name) , returnTypeKey = getKey(returnType) , parameterKey = getKey(parameters);
         directedGraph.addVertex(this);
-        directedGraph.addVertex(this.name);
-        directedGraph.addVertex(this.returnType);
-        directedGraph.addVertex(this.parameters);
-        directedGraph.addEdge(this , this.name);
-        directedGraph.addEdge(this , this.returnType);
-        directedGraph.addEdge(this , this.parameters);
+        directedGraph.addVertex(nameKey);
+        directedGraph.addVertex(returnTypeKey);
+        directedGraph.addVertex(parameterKey);
+        directedGraph.addEdge(this , nameKey);
+        directedGraph.addEdge(this , returnTypeKey);
+        directedGraph.addEdge(this , parameterKey);
         directedGraph.addEdge(this , returnValue);
         for (Statement item : body) {
             directedGraph.addEdge(this , item);
         }
     }
 
+    public String getKey(String str){
+        return date.getTime() + "\n" + str;
+    }
+
     @Override
     public String toString() {
-        return "DartFunction{" +
+        return date.getTime() +  "\nDartFunction{" +
                 "lineNumber=" + lineNumber +
                 '}';
     }

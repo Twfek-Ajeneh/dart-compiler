@@ -3,6 +3,8 @@ package compiler.ast.dartStatement;
 import compiler.utils.Edge;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import java.util.Date;
+
 public class VariableStatement extends Statement{
     private final String type;
     private final String name;
@@ -20,17 +22,18 @@ public class VariableStatement extends Statement{
     public String getVariableValue(){ return variableValue; }
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+        String typeKey = getKey(type) , nameKey = getKey(name) , variableValueKey = getKey(variableValue);
         directedGraph.addVertex(this);
-        directedGraph.addVertex(this.type);
-        directedGraph.addVertex(this.name);
-        directedGraph.addVertex(this.variableValue);
-        directedGraph.addEdge(this , this.type);
-        directedGraph.addEdge(this , this.name);
-        directedGraph.addEdge(this , this.variableValue);
+        directedGraph.addVertex(typeKey);
+        directedGraph.addVertex(nameKey);
+        directedGraph.addVertex(variableValueKey);
+        directedGraph.addEdge(this , typeKey);
+        directedGraph.addEdge(this , nameKey);
+        directedGraph.addEdge(this , variableValueKey);
     }
 
     public String toString() {
-        return "Variable Statement{" +
+        return date.getTime() + "\nVariable Statement{" +
                 "lineNumber =" + lineNumber +
                 '}';
     }

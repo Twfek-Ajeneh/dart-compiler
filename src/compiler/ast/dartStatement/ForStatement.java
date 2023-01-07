@@ -30,7 +30,7 @@ public class ForStatement extends Statement {
     }
 
     public String toString() {
-        return "For Statement{" +
+        return date.getTime() + "\nFor Statement{" +
                 "lineNumber =" + lineNumber +
                 '}';
     }

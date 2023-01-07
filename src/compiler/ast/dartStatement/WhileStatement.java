@@ -24,7 +24,7 @@ public class WhileStatement extends Statement{
     }
 
     public String toString() {
-        return "While Statement{" +
+        return date.getTime() + "\nWhile Statement{" +
                 "lineNumber =" + lineNumber +
                 '}';
     }

@@ -3,7 +3,10 @@ package compiler.ast.dartStatement;
 import compiler.utils.Edge;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
+import java.util.Date;
+
 public class Statement {
+    protected final Date date = new Date();
     protected final int lineNumber;
     protected final String value;
 
@@ -16,9 +19,13 @@ public class Statement {
         directedGraph.addVertex(this);
     }
 
+    public String getKey(String str){
+        return date.getTime() + "\n" + str;
+    }
+
     @Override
     public String toString() {
-        return "Statement{" +
+        return  date.getTime() + "\nStatement{" +
                 "lineNumber=" + lineNumber +
                 '}';
     }

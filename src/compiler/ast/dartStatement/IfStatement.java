@@ -29,7 +29,7 @@ public class IfStatement extends Statement {
     }
 
     public String toString() {
-        return "IF Statement{" +
+        return date.getTime() + "\nIF Statement{" +
                 "lineNumber =" + lineNumber +
                 '}';
     }

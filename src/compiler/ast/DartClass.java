@@ -6,8 +6,10 @@ import compiler.utils.Edge;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DartClass {
+    private final Date date = new Date();
     private final int lineNumber;
     private final String value;
     private final String name;
@@ -40,13 +42,14 @@ public class DartClass {
     }
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+        String nameKey = getKey(name) , parentKey = getKey(parent) , parameterKey = getKey(constructorParameter);
         directedGraph.addVertex(this);
-        directedGraph.addVertex(this.name);
-        directedGraph.addVertex(this.parent);
-        directedGraph.addVertex(this.constructorParameter);
-        directedGraph.addEdge(this , this.name);
-        directedGraph.addEdge(this , this.parent);
-        directedGraph.addEdge(this , this.constructorParameter);
+        directedGraph.addVertex(nameKey);
+        directedGraph.addVertex(parentKey);
+        directedGraph.addVertex(parameterKey);
+        directedGraph.addEdge(this , nameKey);
+        directedGraph.addEdge(this , parentKey);
+        directedGraph.addEdge(this , parameterKey);
         for (Statement item : constructorStatement) {
             directedGraph.addEdge(this , item);
         }
@@ -58,9 +61,13 @@ public class DartClass {
         }
     }
 
+    public String getKey(String str){
+        return date.getTime() + "\n" + str;
+    }
+
     @Override
     public String toString() {
-        return "DartClass{" +
+        return date.getTime() +  "\nDartClass{" +
                 "lineNumber=" + lineNumber +
                 '}';
     }

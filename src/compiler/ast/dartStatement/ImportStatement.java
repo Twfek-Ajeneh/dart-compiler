@@ -20,15 +20,16 @@ public class ImportStatement extends Statement {
     }
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+        String importPathKey = getKey(importPath) , aliasKey = getKey(alias);
         directedGraph.addVertex(this);
-        directedGraph.addVertex(this.importPath);
-        directedGraph.addVertex(this.alias);
-        directedGraph.addEdge(this , this.importPath);
-        directedGraph.addEdge(this , this.alias);
+        directedGraph.addVertex(importPathKey);
+        directedGraph.addVertex(aliasKey);
+        directedGraph.addEdge(this , importPathKey);
+        directedGraph.addEdge(this , aliasKey);
     }
 
     public String toString() {
-        return "Import Statement{" +
+        return date.getTime() + "\nImport Statement{" +
                 "lineNumber =" + lineNumber +
                 '}';
     }

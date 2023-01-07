@@ -6,6 +6,7 @@ import compiler.utils.Edge;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Program {
     private final ArrayList<ImportStatement> importsStatement;
@@ -36,7 +37,7 @@ public class Program {
 
     @Override
     public String toString() {
-        return "Program{" +
+        return  (new Date()).getTime() + "\nProgram{" +
                 "  \n Number of import =" + importsStatement.size() +
                 "  \n Number of functions=" + functions.size() +
                 "  \n Number of classes=" + classes.size() +

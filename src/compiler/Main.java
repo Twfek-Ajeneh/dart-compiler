@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-            String filePath = "C:\\Users\\Twfek Ajeneh\\Desktop\\Collage\\Forth year\\Chapter one\\Practical\\Compiler\\Final-Project\\dart-compiler\\src\\compiler\\tests/test1.txt";
+            String filePath = "C:\\Users\\Twfek Ajeneh\\Desktop\\Collage\\Forth year\\Chapter one\\Practical\\Compiler\\Final-Project\\dart-compiler\\src\\compiler\\tests/test2.txt";
             CharStream input = CharStreams.fromFileName(filePath);
             DartLexer lexer = new DartLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
