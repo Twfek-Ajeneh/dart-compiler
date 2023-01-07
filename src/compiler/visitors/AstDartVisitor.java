@@ -16,16 +16,16 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.traverse.DepthFirstIterator;
 
 import javax.imageio.ImageIO;
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class AstDartVisitor extends DartParserBaseVisitor<Object> {
 
@@ -39,13 +39,22 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         }
     }
 
+    public void dfs() {
+        Iterator<Object> iterator = new DepthFirstIterator<>(directedGraph);
+        while (iterator.hasNext()) {
+            Object next = iterator.next();
+            System.out.println(next.toString());
+            System.out.println("==========================");
+        }
+    }
+
     public void generateAstPng() throws IOException {
         JGraphXAdapter<Object, Edge> graphAdapter = new JGraphXAdapter<>(directedGraph);
         mxIGraphLayout layout = new mxCircleLayout(graphAdapter);
         layout.execute(graphAdapter.getDefaultParent());
         BufferedImage image =
                 mxCellRenderer.createBufferedImage(graphAdapter, null, 2, Color.WHITE, true, null);
-        File imgFile = new File("C:\\Users\\ASUS\\Desktop\\New folder/graph.png");
+        File imgFile = new File("D:/graph.png");
         ImageIO.write(image, "PNG", imgFile);
     }
 

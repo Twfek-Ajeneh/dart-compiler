@@ -1,5 +1,68 @@
-void main(){
-    final int a = 1;
-    final int a = 1;
-    return 1;
+class LoginScreen extends StatelessWidget {
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: new SafeArea(
+        child: new Padding(
+          child: new Center(
+            child: new ScrollConfiguration(
+              behavior: new NonGlowScrollBehavior(),
+              child: new SingleChildScrollView(
+                child: new Column(
+                  children: [
+                    new Image(
+                      "assets/images/tawfeer.png",
+                      width: 210.0,
+                      height: 160.0,
+                    ),
+                    new SizedBox(height: 35.0),
+                    new Text(
+                      "Welcome to Tawfeer!",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                    new SizedBox(height: 10),
+                    new Text(
+                      "Spend your money wisely!",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: MyColors.darkGrey,
+                      )
+                    ),
+                    new SizedBox(height: 45.0),
+                    _form(context),
+                    new SizedBox(height: 5.0),
+                    _registerRow(context),
+                  ]
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _form(BuildContext context) {
+    return new Form(
+      child: new Column(
+        children: [
+          _emailTextFormField(context),
+          new SizedBox(height: 15.0),
+          _passwordTextFormField(context),
+          new SizedBox(height: 25.0),
+          _materialButton(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _emailTextFormField(BuildContext context) {
+    return new MyTextFormField(
+      label: "Email",
+      textController: _emailController,
+    );
+  }
 }
