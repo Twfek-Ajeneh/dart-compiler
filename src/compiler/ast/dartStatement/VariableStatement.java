@@ -24,11 +24,11 @@ public class VariableStatement extends Statement{
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
         String typeKey = getKey(type) , nameKey = getKey(name) , variableValueKey = getKey(variableValue);
         directedGraph.addVertex(this);
-        directedGraph.addVertex(typeKey);
         directedGraph.addVertex(nameKey);
-        directedGraph.addVertex(variableValueKey);
-        directedGraph.addEdge(this , typeKey);
         directedGraph.addEdge(this , nameKey);
+        directedGraph.addVertex(typeKey);
+        directedGraph.addEdge(this , typeKey);
+        directedGraph.addVertex(variableValueKey);
         directedGraph.addEdge(this , variableValueKey);
     }
 

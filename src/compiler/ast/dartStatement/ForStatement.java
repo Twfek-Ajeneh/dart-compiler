@@ -21,10 +21,14 @@ public class ForStatement extends Statement {
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
         directedGraph.addVertex(this);
+        beginStatement.addToTree(directedGraph);
         directedGraph.addEdge(this, this.beginStatement);
+        condition.addToTree(directedGraph);
         directedGraph.addEdge(this, this.condition);
+        endStatement.addToTree(directedGraph);
         directedGraph.addEdge(this, this.endStatement);
         for (Statement item : body) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this, item);
         }
     }

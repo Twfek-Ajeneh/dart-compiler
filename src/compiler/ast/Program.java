@@ -24,12 +24,15 @@ public class Program {
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
         directedGraph.addVertex(this);
         for (ImportStatement anImport : importsStatement) {
+            anImport.addToTree(directedGraph);
             directedGraph.addEdge(this, anImport);
         }
         for (DartFunction function : functions) {
+            function.addToTree(directedGraph);
             directedGraph.addEdge(this,function);
         }
         for (DartClass aClass : classes) {
+            aClass.addToTree(directedGraph);
             directedGraph.addEdge(this, aClass);
         }
     }

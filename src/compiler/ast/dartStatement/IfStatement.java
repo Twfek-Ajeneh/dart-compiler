@@ -19,11 +19,14 @@ public class IfStatement extends Statement {
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
         directedGraph.addVertex(this);
+        condition.addToTree(directedGraph);
         directedGraph.addEdge(this , this.condition);
         for (Statement item : body) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
         for (Statement item : elseBlock) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
     }

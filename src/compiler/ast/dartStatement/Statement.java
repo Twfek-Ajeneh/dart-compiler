@@ -20,12 +20,12 @@ public class Statement {
     }
 
     public String getKey(String str){
-        return date.getTime() + "\n" + str;
+        return date.getTime() * Math.random() + "\n" + str;
     }
 
     @Override
     public String toString() {
-        return  date.getTime() + "\nStatement{" +
+        return  date.getTime() * Math.random() + "\nStatement{" +
                 "lineNumber=" + lineNumber +
                 '}';
     }

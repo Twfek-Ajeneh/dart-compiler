@@ -23,8 +23,8 @@ public class ImportStatement extends Statement {
         String importPathKey = getKey(importPath) , aliasKey = getKey(alias);
         directedGraph.addVertex(this);
         directedGraph.addVertex(importPathKey);
-        directedGraph.addVertex(aliasKey);
         directedGraph.addEdge(this , importPathKey);
+        directedGraph.addVertex(aliasKey);
         directedGraph.addEdge(this , aliasKey);
     }
 

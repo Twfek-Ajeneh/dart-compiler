@@ -45,24 +45,27 @@ public class DartClass {
         String nameKey = getKey(name) , parentKey = getKey(parent) , parameterKey = getKey(constructorParameter);
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
-        directedGraph.addVertex(parentKey);
-        directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , nameKey);
+        directedGraph.addVertex(parentKey);
         directedGraph.addEdge(this , parentKey);
+        directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , parameterKey);
         for (Statement item : constructorStatement) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
         for (VariableStatement item : variables) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
         for (DartFunction item : functions) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
     }
 
     public String getKey(String str){
-        return date.getTime() + "\n" + str;
+        return date.getTime() * Math.random()+ "\n" + str;
     }
 
     @Override

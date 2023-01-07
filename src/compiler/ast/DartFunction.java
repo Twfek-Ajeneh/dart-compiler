@@ -32,19 +32,21 @@ public class DartFunction {
         String nameKey = getKey(name) , returnTypeKey = getKey(returnType) , parameterKey = getKey(parameters);
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
-        directedGraph.addVertex(returnTypeKey);
-        directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , nameKey);
+        directedGraph.addVertex(returnTypeKey);
         directedGraph.addEdge(this , returnTypeKey);
+        directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , parameterKey);
+        returnValue.addToTree(directedGraph);
         directedGraph.addEdge(this , returnValue);
         for (Statement item : body) {
+            item.addToTree(directedGraph);
             directedGraph.addEdge(this , item);
         }
     }
 
     public String getKey(String str){
-        return date.getTime() + "\n" + str;
+        return date.getTime() * Math.random() + "\n"  + str;
     }
 
     @Override
