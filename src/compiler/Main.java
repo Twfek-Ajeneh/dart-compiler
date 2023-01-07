@@ -2,7 +2,6 @@ package compiler;
 
 import compiler.ast.Program;
 import compiler.visitors.AstDartVisitor;
-import compiler.visitors.DartParserVisitor;
 import gen.DartLexer;
 import gen.DartParser;
 import org.antlr.v4.runtime.CharStream;
@@ -10,11 +9,9 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.function.DoubleToIntFunction;
-
 public class Main {
     public static void main(String[] args) throws Exception {
-            String filePath = "C:\\Users\\Twfek Ajeneh\\Desktop\\Collage\\Forth year\\Chapter one\\Practical\\Compiler\\Final-Project\\dart-compiler\\src\\compiler\\tests/test1.txt";
+            String filePath = "C:\\Users\\DIGI TECH\\IdeaProjects\\dart-compiler\\src\\compiler\\tests/test1.txt";
             CharStream input = CharStreams.fromFileName(filePath);
             DartLexer lexer = new DartLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -23,6 +20,7 @@ public class Main {
             AstDartVisitor astDartVisitor = new AstDartVisitor();
             Program root = (Program) astDartVisitor.visit(tree);
             astDartVisitor.getSymbolTable();
+            astDartVisitor.generateAstPng();
 //            System.out.print(root.toString());
 //            DartParserVisitor dartParserVisitor = new DartParserVisitor();
 //            AstNode root = dartParserVisitor.visit(tree);
