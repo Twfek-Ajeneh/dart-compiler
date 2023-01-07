@@ -30,7 +30,7 @@ public class Statement {
     @Override
     public String toString() {
         return  date.getTime() * Math.random() + "\nStatement{" +
-                "lineNumber=" + lineNumber +
-                '}';
+                "\n\tlineNumber=" + lineNumber +
+                "\n}";
     }
 }

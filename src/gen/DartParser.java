@@ -352,11 +352,11 @@ public class DartParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StatementContext extends ParserRuleContext {
-		public VariableStatementContext variableStatement() {
-			return getRuleContext(VariableStatementContext.class,0);
-		}
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
+		}
+		public VariableStatementContext variableStatement() {
+			return getRuleContext(VariableStatementContext.class,0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -388,14 +388,14 @@ public class DartParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(106);
-				variableStatement();
+				expression();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(107);
-				expression();
+				variableStatement();
 				}
 				break;
 			}
@@ -3776,7 +3776,7 @@ public class DartParser extends Parser {
 		"bc\u0003\u0006\u0003\u0000cd\u0005\u001b\u0000\u0000d\u0003\u0001\u0000"+
 		"\u0000\u0000ei\u0003L&\u0000fi\u0003N\'\u0000gi\u0003P(\u0000he\u0001"+
 		"\u0000\u0000\u0000hf\u0001\u0000\u0000\u0000hg\u0001\u0000\u0000\u0000"+
-		"i\u0005\u0001\u0000\u0000\u0000jm\u0003\n\u0005\u0000km\u0003<\u001e\u0000"+
+		"i\u0005\u0001\u0000\u0000\u0000jm\u0003<\u001e\u0000km\u0003\n\u0005\u0000"+
 		"lj\u0001\u0000\u0000\u0000lk\u0001\u0000\u0000\u0000m\u0007\u0001\u0000"+
 		"\u0000\u0000no\u0007\u0000\u0000\u0000o\t\u0001\u0000\u0000\u0000pt\u0003"+
 		"\u0012\t\u0000qt\u0003\u0014\n\u0000rt\u0003\u0018\f\u0000sp\u0001\u0000"+

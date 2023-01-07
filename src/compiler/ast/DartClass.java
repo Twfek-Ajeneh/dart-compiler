@@ -75,7 +75,7 @@ public class DartClass {
     @Override
     public String toString() {
         return date.getTime() +  "\nDartClass{" +
-                "lineNumber=" + lineNumber +
-                '}';
+                "\n\tlineNumber=" + lineNumber +
+                "\n}";
     }
 }

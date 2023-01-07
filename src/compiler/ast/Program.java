@@ -41,9 +41,9 @@ public class Program {
     @Override
     public String toString() {
         return  (new Date()).getTime() + "\nProgram{" +
-                "  \n Number of import =" + importsStatement.size() +
-                "  \n Number of functions=" + functions.size() +
-                "  \n Number of classes=" + classes.size() +
+                "\n\tNumber of import = " + importsStatement.size() +
+                "\n\tNumber of functions= " + functions.size() +
+                "\n\tNumber of classes= " + classes.size() +
                 "\n}";
     }
 }

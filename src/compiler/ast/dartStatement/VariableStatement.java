@@ -35,7 +35,7 @@ public class VariableStatement extends Statement{
 
     public String toString() {
         return date.getTime() + "\nVariable Statement{" +
-                "lineNumber =" + lineNumber +
-                '}';
+                "\n\tlineNumber =" + lineNumber +
+                "\n}";
     }
 }

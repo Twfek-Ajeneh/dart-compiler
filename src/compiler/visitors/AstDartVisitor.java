@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -34,9 +35,15 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
     HashMap<String, String> symbolTable = new HashMap<>();
 
     public void getSymbolTable() {
+        System.out.println("Symbol Table:");
+        Formatter fmt = new Formatter();
+        fmt.format("%1s %15s\n", "Name", "Value");
+        fmt.format("----------------------\n");
         for (String key : symbolTable.keySet()) {
-            System.out.println(key + " : " + symbolTable.get(key));
+            fmt.format("%1s %16s\n", key, symbolTable.get(key));
         }
+        System.out.print(fmt);
+        System.out.println("========================================");
     }
 
     public void dfs() {
@@ -54,7 +61,7 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         layout.execute(graphAdapter.getDefaultParent());
         BufferedImage image =
                 mxCellRenderer.createBufferedImage(graphAdapter, null, 2, Color.WHITE, true, null);
-        File imgFile = new File("D:/graph.png");
+        File imgFile = new File("C:\\Users\\Twfek Ajeneh\\Desktop\\New folder/graph.png");
         ImageIO.write(image, "PNG", imgFile);
     }
 

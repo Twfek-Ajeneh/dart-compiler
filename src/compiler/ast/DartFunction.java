@@ -31,7 +31,7 @@ public class DartFunction {
 
     public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
         setAstParent(astParent);
-        String nameKey = getKey() + "Name : " + name , returnTypeKey = getKey() + "Return Type : " + returnType, parameterKey = getKey() + "Parameter Key : " + parameters;
+        String nameKey = getKey() + "Name : " + name , returnTypeKey = getKey() + "Return Type : " + returnType, parameterKey = getKey() + "Parameter: " + parameters;
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
         directedGraph.addEdge(this , nameKey);
@@ -56,8 +56,8 @@ public class DartFunction {
     @Override
     public String toString() {
         return date.getTime() +  "\nDartFunction{" +
-                "lineNumber=" + lineNumber +
-                '}';
+                "\n\tlineNumber = " + lineNumber +
+                "\n}";
     }
 }
 

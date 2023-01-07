@@ -11,7 +11,9 @@ semiColonStatement: statement SC;
 
 nonSemiColonStatement: forStatement | whileStatement | ifStatement;
 
-statement: variableStatement | expression;
+statement: expression
+         | variableStatement
+         ;
 
 type: TYPE | IDENTIFIER;
 //===================================================

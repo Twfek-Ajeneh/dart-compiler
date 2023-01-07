@@ -17,8 +17,8 @@ public class ExpressionStatement extends Statement {
     @Override
     public String toString() {
         return date.getTime() +  "\nExpression Statement{" +
-                "lineNumber =" + lineNumber +
-                "value = " + value +
-                '}';
+                "\n\tlineNumber =" + lineNumber +
+                "\n\tvalue = " + value +
+                "\n}";
     }
 }

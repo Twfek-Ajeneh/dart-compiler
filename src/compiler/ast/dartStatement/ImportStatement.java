@@ -31,7 +31,7 @@ public class ImportStatement extends Statement {
 
     public String toString() {
         return date.getTime() + "\nImport Statement{" +
-                "lineNumber =" + lineNumber +
-                '}';
+                "\n\tlineNumber =" + lineNumber +
+                "\n}";
     }
 }

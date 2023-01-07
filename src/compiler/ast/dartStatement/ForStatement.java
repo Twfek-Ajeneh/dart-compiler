@@ -36,7 +36,7 @@ public class ForStatement extends Statement {
 
     public String toString() {
         return date.getTime() + "\nFor Statement{" +
-                "lineNumber =" + lineNumber +
-                '}';
+                "\n\tlineNumber =" + lineNumber +
+                "\n}";
     }
 }
