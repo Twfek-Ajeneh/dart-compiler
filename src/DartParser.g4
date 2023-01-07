@@ -74,7 +74,7 @@ functionCall: IDENTIFIER arguments;
 arguments: OP CP
          | OP positionalArguments C namedArguments C? CP
          | OP positionalArguments C? CP
-         | OP namedArguments CP;
+         | OP namedArguments C? CP;
 
 positionalArguments: expression (C expression)*;
 
@@ -139,7 +139,7 @@ literal: NUMBER
 
 objectLiteral: NEW_ IDENTIFIER  arguments (D IDENTIFIER)*;
 
-listLiteral: (OB CB) | OB literal (C literal)* C? CB;
+listLiteral: (OB CB) | OB (literal | functionCall) (C (literal | functionCall))* C? CB;
 
 objectContent: IDENTIFIER (D IDENTIFIER)+;
 //===================================================
