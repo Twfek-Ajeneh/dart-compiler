@@ -217,7 +217,7 @@ public class AstDartVisitor extends DartParserBaseVisitor<Object> {
         if(ctx.IDENTIFIER() == null)
             return new ImportStatement(ctx.start.getLine() , ctx.getText() , ctx.getChild(2).getText());
         else
-            return new ImportStatement(ctx.start.getLine() , ctx.getText() , ctx.getChild(2).getText() , ctx.IDENTIFIER().getText());
+            return new ImportStatement(ctx.start.getLine() , ctx.getText() , ctx.getChild(1).getText() , ctx.IDENTIFIER().getText());
     }
 
     @Override
