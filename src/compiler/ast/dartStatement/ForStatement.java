@@ -19,16 +19,17 @@ public class ForStatement extends Statement {
         this.body = body;
     }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
         directedGraph.addVertex(this);
-        beginStatement.addToTree(directedGraph);
+        beginStatement.addToTree(directedGraph,this);
         directedGraph.addEdge(this, this.beginStatement);
-        condition.addToTree(directedGraph);
+        condition.addToTree(directedGraph,this);
         directedGraph.addEdge(this, this.condition);
-        endStatement.addToTree(directedGraph);
+        endStatement.addToTree(directedGraph,this);
         directedGraph.addEdge(this, this.endStatement);
         for (Statement item : body) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this, item);
         }
     }

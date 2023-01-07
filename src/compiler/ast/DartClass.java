@@ -18,6 +18,7 @@ public class DartClass {
     private final String constructorParameter;
     private final ArrayList<Statement> constructorStatement;
     private final String parent;
+    private Program astParent = null;
 
     public DartClass(int lineNumber ,String value , String name, ArrayList<DartFunction> functions, ArrayList<VariableStatement> variables, String constructorParameter, ArrayList<Statement> constructorStatement) {
         this.lineNumber = lineNumber;
@@ -41,8 +42,9 @@ public class DartClass {
         this.parent = parent;
     }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
-        String nameKey = getKey(name) , parentKey = getKey(parent) , parameterKey = getKey(constructorParameter);
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Program program){
+        setAstParent(program);
+        String nameKey = getKey() + "Name : " + name , parentKey = getKey() + "Parent : " + parent , parameterKey = getKey() + "Constructor Parameter : " + constructorParameter;
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
         directedGraph.addEdge(this , nameKey);
@@ -51,22 +53,24 @@ public class DartClass {
         directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , parameterKey);
         for (Statement item : constructorStatement) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this , item);
         }
         for (VariableStatement item : variables) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this , item);
         }
         for (DartFunction item : functions) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this , item);
         }
     }
 
-    public String getKey(String str){
-        return date.getTime() * Math.random()+ "\n" + str;
+    public String getKey(){
+        return date.getTime() * Math.random()+ "\n" ;
     }
+
+    public void setAstParent(Program astParent) { this.astParent = astParent; }
 
     @Override
     public String toString() {

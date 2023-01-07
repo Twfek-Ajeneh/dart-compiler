@@ -21,8 +21,9 @@ public class VariableStatement extends Statement{
 
     public String getVariableValue(){ return variableValue; }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
-        String typeKey = getKey(type) , nameKey = getKey(name) , variableValueKey = getKey(variableValue);
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
+        String typeKey = getKey() + "Type : " + type , nameKey = getKey() + "Name : " + name , variableValueKey = getKey() + "Variable Value : " + variableValue;
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
         directedGraph.addEdge(this , nameKey);

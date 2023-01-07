@@ -15,12 +15,13 @@ public class WhileStatement extends Statement{
         this.body = body;
     }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
         directedGraph.addVertex(this);
-        condition.addToTree(directedGraph);
+        condition.addToTree(directedGraph,this);
         directedGraph.addEdge(this, this.condition);
         for (Statement item : body) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this , item);
         }
     }

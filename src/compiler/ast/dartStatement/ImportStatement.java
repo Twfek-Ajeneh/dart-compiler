@@ -19,8 +19,9 @@ public class ImportStatement extends Statement {
         this.alias = "";
     }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
-        String importPathKey = getKey(importPath) , aliasKey = getKey(alias);
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
+        String importPathKey = getKey() + "Import Path : " + importPath , aliasKey = getKey() + "Alias : " + alias;
         directedGraph.addVertex(this);
         directedGraph.addVertex(importPathKey);
         directedGraph.addEdge(this , importPathKey);

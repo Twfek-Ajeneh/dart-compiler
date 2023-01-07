@@ -17,6 +17,7 @@ public class DartFunction {
     private final String parameters;
     private final ArrayList<Statement> body;
     private final ExpressionStatement returnValue;
+    private Object astParent = null;
 
     public DartFunction(int lineNumber , String value, String name, String returnType, String parameters, ArrayList<Statement> body, ExpressionStatement returnValue) {
         this.lineNumber = lineNumber;
@@ -28,8 +29,9 @@ public class DartFunction {
         this.returnValue = returnValue;
     }
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
-        String nameKey = getKey(name) , returnTypeKey = getKey(returnType) , parameterKey = getKey(parameters);
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
+        String nameKey = getKey() + "Name : " + name , returnTypeKey = getKey() + "Return Type : " + returnType, parameterKey = getKey() + "Parameter Key : " + parameters;
         directedGraph.addVertex(this);
         directedGraph.addVertex(nameKey);
         directedGraph.addEdge(this , nameKey);
@@ -37,17 +39,19 @@ public class DartFunction {
         directedGraph.addEdge(this , returnTypeKey);
         directedGraph.addVertex(parameterKey);
         directedGraph.addEdge(this , parameterKey);
-        returnValue.addToTree(directedGraph);
+        returnValue.addToTree(directedGraph,this);
         directedGraph.addEdge(this , returnValue);
         for (Statement item : body) {
-            item.addToTree(directedGraph);
+            item.addToTree(directedGraph,this);
             directedGraph.addEdge(this , item);
         }
     }
 
-    public String getKey(String str){
-        return date.getTime() * Math.random() + "\n"  + str;
+    public String getKey(){
+        return date.getTime() * Math.random() + "\n" ;
     }
+
+    public void setAstParent(Object astParent) { this.astParent = astParent; }
 
     @Override
     public String toString() {

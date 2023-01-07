@@ -9,7 +9,8 @@ public class ExpressionStatement extends Statement {
     }
 
 
-    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph){
+    public void addToTree(DefaultDirectedGraph<Object, Edge> directedGraph , Object astParent){
+        setAstParent(astParent);
         directedGraph.addVertex(this);
     }
 
